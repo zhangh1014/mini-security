@@ -14,7 +14,8 @@ import org.lechisoft.minifw.security.model.PermissionModel;
 import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
-public class MiniSecurity {
+public class MiniSecurity implements IMiniSecurity {
+    
     private static final String DEFAULT_LOGGER = "syslogger";
     private final static String DEFAULT_PATH = "conf/mini-security.xml";
     private String configFilePath = "";
@@ -22,9 +23,9 @@ public class MiniSecurity {
     Log log = null;
 
     // 权限、角色、用户
-    private List<PermissionModel> permissions = new ArrayList<PermissionModel>();
-    private List<RoleModel> roles = new ArrayList<RoleModel>();
-    private List<UserModel> users = new ArrayList<UserModel>();
+    private List<PermissionModel> permissions = null;
+    private List<RoleModel> roles = null;
+    private List<UserModel> users = null;
 
     public MiniSecurity() {
         this(DEFAULT_PATH);
@@ -44,107 +45,152 @@ public class MiniSecurity {
     }
 
     private void load() {
-
         SAXReader saxReader = new SAXReader();
         try {
             Document document = saxReader.read(this.configFilePath);
             Element root = document.getRootElement();
 
-            // load permissions
-            for (Element e : root.elements()) {
-                if (e.getName().equals("permissions")) {
-                    for (Element ep : e.elements()) {
-                        Element eResource = ep.element("resource");
-                        Element eAction = ep.element("action");
-                        Element eDescription = ep.element("description");
-                        Element eSort = ep.element("sort");
-                        Element eRemarks = ep.element("remarks");
+            // 1.load permissions
+            this.loadPermissions(root);
 
-                        String resource = eResource.getText();
-                        String action = eAction.getText();
-                        String description = eDescription.getText();
+            // 2.load roles
+            this.loadRoles(root);
 
-                        String sort = null == eSort ? "0" : eSort.getText();
-                        sort = sort.matches("^\\d+$") ? sort : "0";
-                        String remarks = null == eRemarks ? "" : eRemarks.getText();
-
-                        PermissionModel permission = new PermissionModel();
-                        permission.setResource(resource);
-                        permission.setAction(action);
-                        permission.setDescription(description);
-                        permission.setSort(Integer.parseInt(sort));
-                        permission.setRemarks(remarks);
-                        this.permissions.add(permission);
-                    }
-                }
-            }
-
-            // load permissions
-            for (Element e : root.elements()) {
-                if (e.getName().equals("roles")) {
-                    for (Element er : e.elements()) {
-                        Element eRoleId = er.element("role_id");
-                        Element eRoleName = er.element("role_name");
-                        Element eParentRoleId = er.element("parent_role_id");
-                        Element eSort = er.element("sort");
-                        Element eRemarks = er.element("remarks");
-
-                        String roleId = eRoleId.getText();
-                        String roleName = eRoleName.getText();
-                        String parentRoleId = eParentRoleId.getText();
-
-                        String sort = null == eSort ? "0" : eSort.getText();
-                        sort = sort.matches("^\\d+$") ? sort : "0";
-                        String remarks = null == eRemarks ? "" : eRemarks.getText();
-
-                        RoleModel role = new RoleModel();
-                        role.setRoleId(roleId);
-                        role.setRoleName(roleName);
-                        role.setParentRoleId(parentRoleId);
-                        role.setSort(Integer.parseInt(sort));
-                        role.setRemarks(remarks);
-
-                        Element ePermissions = er.element("permissions");
-                        if (null != ePermissions) {
-                            for (Element ep : ePermissions.elements()) {
-                                Element eResource = ep.element("resource");
-                                Element eAction = ep.element("action");
-                                String resource = eResource.getText();
-                                String action = eAction.getText();
-
-                                PermissionModel permission = this.getPermission(resource, action).clone();
-                                if (null != permission) {
-                                    role.getPermissions().add(permission);
-                                }
-
-                            }
-                        }
-
-                        this.roles.add(role);
-                        //
-                        //
-                        //
-                        // Element ePermissions = ep.element("permissions");
-                        // Element eExcludePermissions =
-                        // ep.element("exclude_permissions");
-                        // Element eTags = ep.element("tags");
-                        //
-                        //
-                        // PermissionModel permission = new PermissionModel();
-                        // permission.setResource(resource);
-                        // permission.setAction(action);
-                        // permission.setDescription(description);
-                        // permission.setSort(Integer.parseInt(sort));
-                        // permission.setRemarks(remarks);
-                        // this.permissions.add(new PermissionModel());
-                    }
-                }
-            }
+            // 3.load users
+            this.loadUsers(root);
 
         } catch (DocumentException e) {
             this.log.error("load " + this.configFilePath + " failed.", e);
         } catch (Exception e) {
             this.log.error("load " + this.configFilePath + " failed.", e);
+        }
+    }
+
+    private void loadPermissions(Element root) {
+        this.permissions = new ArrayList<PermissionModel>();
+
+        for (Element e : root.elements()) {
+            if (e.getName().equals("permissions")) {
+                for (Element ePermission : e.elements()) {
+                    Element eResource = ePermission.element("resource");
+                    Element eAction = ePermission.element("action");
+                    Element eDescription = ePermission.element("description");
+                    Element eSort = ePermission.element("sort");
+                    Element eRemarks = ePermission.element("remarks");
+
+                    String resource = eResource.getText();
+                    String action = eAction.getText();
+                    String description = eDescription.getText();
+
+                    String sort = null == eSort ? "0" : eSort.getText();
+                    sort = sort.matches("^\\d+$") ? sort : "0";
+                    String remarks = null == eRemarks ? "" : eRemarks.getText();
+
+                    PermissionModel permission = new PermissionModel();
+                    permission.setResource(resource);
+                    permission.setAction(action);
+                    permission.setDescription(description);
+                    permission.setSort(Integer.parseInt(sort));
+                    permission.setRemarks(remarks);
+                    this.permissions.add(permission);
+                }
+            }
+        }
+    }
+
+    private void loadRoles(Element root) {
+        this.roles = new ArrayList<RoleModel>();
+
+        for (Element e : root.elements()) {
+            if (e.getName().equals("roles")) {
+                for (Element eRole : e.elements()) {
+                    Element eRoleId = eRole.element("role_id");
+                    Element eRoleName = eRole.element("role_name");
+                    Element eParentRoleId = eRole.element("parent_role_id");
+                    Element eSort = eRole.element("sort");
+                    Element eRemarks = eRole.element("remarks");
+
+                    String roleId = eRoleId.getText();
+                    String roleName = eRoleName.getText();
+                    String parentRoleId = eParentRoleId.getText();
+
+                    String sort = null == eSort ? "0" : eSort.getText();
+                    sort = sort.matches("^\\d+$") ? sort : "0";
+                    String remarks = null == eRemarks ? "" : eRemarks.getText();
+
+                    RoleModel role = new RoleModel();
+                    role.setRoleId(roleId);
+                    role.setRoleName(roleName);
+                    role.setParentRoleId(parentRoleId);
+                    role.setSort(Integer.parseInt(sort));
+                    role.setRemarks(remarks);
+
+                    Element ePermissions = eRole.element("permissions");
+                    if (null != ePermissions) {
+                        for (Element ePermission : ePermissions.elements()) {
+                            String resource = ePermission.element("resource").getText();
+                            String action = ePermission.element("action").getText();
+
+                            PermissionModel permission = this.getPermission(resource, action).clone();
+                            if (null != permission) {
+                                role.getPermissions().add(permission);
+                            }
+                        }
+                    }
+
+                    Element eExcludePermissions = eRole.element("exclude_permissions");
+                    if (null != ePermissions) {
+                        for (Element ePermission : eExcludePermissions.elements()) {
+                            String resource = ePermission.element("resource").getText();
+                            String action = ePermission.element("action").getText();
+
+                            PermissionModel permission = this.getPermission(resource, action);
+                            if (null != permission) {
+                                role.getExcludePermissions().add(permission);
+                            }
+                        }
+                    }
+
+                    Element eTags = eRole.element("tags");
+                    if (null != ePermissions) {
+                        for (Element eTag : eTags.elements()) {
+                            String tag = eTag.getText();
+                            if (!"".equals(tag)) {
+                                role.getTags().add(tag);
+                            }
+                        }
+                    }
+                    this.roles.add(role);
+                }
+            }
+        }
+    }
+
+    private void loadUsers(Element root) {
+        this.users = new ArrayList<UserModel>();
+
+        for (Element e : root.elements()) {
+            if (e.getName().equals("users")) {
+                for (Element eUser : e.elements()) {
+                    String userId = eUser.element("user_id").getText();
+                    String userPwd = eUser.element("user_pwd").getText();
+                    String alias = eUser.element("alias").getText();
+
+                    UserModel user = new UserModel();
+                    user.setUserId(userId);
+                    user.setUserPwd(userPwd);
+                    user.setAlias(alias);
+
+                    Element eRoles = eUser.element("roles");
+                    if (null != eRoles) {
+                        for (Element eRole : eRoles.elements()) {
+                            String roleId = eRole.getText();
+                            user.getRoles().add(roleId);
+                        }
+                    }
+                    this.users.add(user);
+                }
+            }
         }
     }
 
@@ -157,7 +203,7 @@ public class MiniSecurity {
         return null;
     }
 
-    public void refresh() {
+    public void reload() {
         this.load();
     }
 }
