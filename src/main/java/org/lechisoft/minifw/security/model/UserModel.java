@@ -24,6 +24,7 @@ public class UserModel implements Cloneable {
     private String alias = ""; // 别名
     private String remarks = ""; // 备注
     private String confirmPwd = ""; // 确认密码
+    //private String confirmPwd = ""; // 确认密码
 
     private Object field = null; // 扩展字段
     private Object field2 = null; // 扩展字段2

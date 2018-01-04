@@ -206,4 +206,10 @@ public class MiniSecurity implements IMiniSecurity {
     public void reload() {
         this.load();
     }
+
+    @Override
+    public void login(String user, String pwd) {
+        // TODO Auto-generated method stub
+        
+    }
 }
