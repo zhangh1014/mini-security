@@ -1,6 +1,7 @@
 package org.lechisoft.minifw.security;
 
 import java.net.URL;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,13 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.lechisoft.minifw.security.common.MD5Util;
 import org.lechisoft.minifw.security.model.PermissionModel;
 import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
 public class MiniSecurity implements IMiniSecurity {
-    
+
     private static final String DEFAULT_LOGGER = "syslogger";
     private final static String DEFAULT_PATH = "conf/mini-security.xml";
     private String configFilePath = "";
@@ -25,7 +27,7 @@ public class MiniSecurity implements IMiniSecurity {
     // 权限、角色、用户
     private List<PermissionModel> permissions = null;
     private List<RoleModel> roles = null;
-    private List<UserModel> users = null;
+    // private List<UserModel> users = null;
 
     public MiniSecurity() {
         this(DEFAULT_PATH);
@@ -45,30 +47,19 @@ public class MiniSecurity implements IMiniSecurity {
     }
 
     private void load() {
-        SAXReader saxReader = new SAXReader();
-        try {
-            Document document = saxReader.read(this.configFilePath);
-            Element root = document.getRootElement();
+        Element root = this.getRoot();
 
-            // 1.load permissions
-            this.loadPermissions(root);
+        // 1.load permissions
+        this.permissions = this.loadPermissions(root);
 
-            // 2.load roles
-            this.loadRoles(root);
-
-            // 3.load users
-            this.loadUsers(root);
-
-        } catch (DocumentException e) {
-            this.log.error("load " + this.configFilePath + " failed.", e);
-        } catch (Exception e) {
-            this.log.error("load " + this.configFilePath + " failed.", e);
-        }
+        // 2.load roles
+        this.roles = this.loadRoles(root);
     }
 
-    private void loadPermissions(Element root) {
-        this.permissions = new ArrayList<PermissionModel>();
+    private List<PermissionModel> loadPermissions(Element root) {
+        root = null == root ? this.getRoot() : root;
 
+        List<PermissionModel> permissions = new ArrayList<PermissionModel>();
         for (Element e : root.elements()) {
             if (e.getName().equals("permissions")) {
                 for (Element ePermission : e.elements()) {
@@ -86,21 +77,19 @@ public class MiniSecurity implements IMiniSecurity {
                     sort = sort.matches("^\\d+$") ? sort : "0";
                     String remarks = null == eRemarks ? "" : eRemarks.getText();
 
-                    PermissionModel permission = new PermissionModel();
-                    permission.setResource(resource);
-                    permission.setAction(action);
-                    permission.setDescription(description);
-                    permission.setSort(Integer.parseInt(sort));
-                    permission.setRemarks(remarks);
-                    this.permissions.add(permission);
+                    PermissionModel permission = new PermissionModel(resource, action, description,
+                            Integer.parseInt(sort), remarks);
+                    permissions.add(permission);
                 }
             }
         }
+        return permissions;
     }
 
-    private void loadRoles(Element root) {
-        this.roles = new ArrayList<RoleModel>();
+    private List<RoleModel> loadRoles(Element root) {
+        root = null == root ? this.getRoot() : root;
 
+        List<RoleModel> roles = new ArrayList<RoleModel>();
         for (Element e : root.elements()) {
             if (e.getName().equals("roles")) {
                 for (Element eRole : e.elements()) {
@@ -131,7 +120,7 @@ public class MiniSecurity implements IMiniSecurity {
                             String resource = ePermission.element("resource").getText();
                             String action = ePermission.element("action").getText();
 
-                            PermissionModel permission = this.getPermission(resource, action).clone();
+                            PermissionModel permission = this.getPermission(resource, action);
                             if (null != permission) {
                                 role.getPermissions().add(permission);
                             }
@@ -139,7 +128,7 @@ public class MiniSecurity implements IMiniSecurity {
                     }
 
                     Element eExcludePermissions = eRole.element("exclude_permissions");
-                    if (null != ePermissions) {
+                    if (null != eExcludePermissions) {
                         for (Element ePermission : eExcludePermissions.elements()) {
                             String resource = ePermission.element("resource").getText();
                             String action = ePermission.element("action").getText();
@@ -152,7 +141,7 @@ public class MiniSecurity implements IMiniSecurity {
                     }
 
                     Element eTags = eRole.element("tags");
-                    if (null != ePermissions) {
+                    if (null != eTags) {
                         for (Element eTag : eTags.elements()) {
                             String tag = eTag.getText();
                             if (!"".equals(tag)) {
@@ -160,25 +149,29 @@ public class MiniSecurity implements IMiniSecurity {
                             }
                         }
                     }
-                    this.roles.add(role);
+                    roles.add(role);
                 }
             }
         }
+        return roles;
     }
 
-    private void loadUsers(Element root) {
-        this.users = new ArrayList<UserModel>();
+    private List<UserModel> loadUsers(Element root) {
+        root = null == root ? this.getRoot() : root;
 
+        List<UserModel> users = new ArrayList<UserModel>();
         for (Element e : root.elements()) {
             if (e.getName().equals("users")) {
                 for (Element eUser : e.elements()) {
                     String userId = eUser.element("user_id").getText();
                     String userPwd = eUser.element("user_pwd").getText();
+                    String salt = eUser.element("salt").getText();
                     String alias = eUser.element("alias").getText();
 
                     UserModel user = new UserModel();
                     user.setUserId(userId);
                     user.setUserPwd(userPwd);
+                    user.setSalt(salt);
                     user.setAlias(alias);
 
                     Element eRoles = eUser.element("roles");
@@ -188,10 +181,25 @@ public class MiniSecurity implements IMiniSecurity {
                             user.getRoles().add(roleId);
                         }
                     }
-                    this.users.add(user);
+                    users.add(user);
                 }
             }
         }
+        return users;
+    }
+
+    private Element getRoot() {
+        SAXReader saxReader = new SAXReader();
+        try {
+            Document document = saxReader.read(this.configFilePath);
+            return document.getRootElement();
+
+        } catch (DocumentException e) {
+            this.log.error("load " + this.configFilePath + " failed.", e);
+        } catch (Exception e) {
+            this.log.error("load " + this.configFilePath + " failed.", e);
+        }
+        return null;
     }
 
     private PermissionModel getPermission(String resource, String action) {
@@ -203,13 +211,69 @@ public class MiniSecurity implements IMiniSecurity {
         return null;
     }
 
+    private RoleModel getRole(String roleId) {
+        for (RoleModel role : this.roles) {
+            if (roleId.equals(role.getRoleId())) {
+                return role;
+            }
+        }
+        return null;
+    }
+
+    private UserModel getUser(String userId) {
+        Element root = this.getRoot();
+
+        for (Element e : root.elements()) {
+            if (e.getName().equals("users")) {
+                for (Element eUser : e.elements()) {
+                    String _userId = eUser.element("user_id").getText();
+                    if (_userId.equals(userId)) {
+                        String userPwd = eUser.element("user_pwd").getText();
+                        String alias = eUser.element("alias").getText();
+
+                        UserModel user = new UserModel();
+                        user.setUserId(_userId);
+                        user.setUserPwd(userPwd);
+                        user.setAlias(alias);
+
+                        Element eRoles = eUser.element("roles");
+                        if (null != eRoles) {
+                            for (Element eRole : eRoles.elements()) {
+                                String roleId = eRole.getText();
+                                user.getRoles().add(roleId);
+                            }
+                        }
+                        return user;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void reload() {
         this.load();
     }
 
     @Override
-    public void login(String user, String pwd) {
-        // TODO Auto-generated method stub
+    public void login(String userName, String password) throws Exception {
+        if("".equals(userName.trim())){
+            throw new Exception("error user name.");
+        }
+        
+        if("".equals(password.trim())){
+            throw new Exception("error password.");
+        }
+        
+        UserModel user = this.getUser(userName);
+        if(null == user){
+            throw new Exception("no user.");
+        }
+        
+        String userPwd = MD5Util.getMD5(password, user.getSalt());
+        if(!userPwd.equals(user.getUserPwd())){
+            throw new Exception("incorrect password.");
+        }
         
     }
 }

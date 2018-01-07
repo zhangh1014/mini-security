@@ -21,10 +21,11 @@ public class UserModel implements Cloneable {
 
     private String userId = ""; // 用户编号
     private String userPwd = ""; // 用户密码
+    private String confirmUserPwd = ""; // 确认密码
+    private String salt = ""; // 盐值
     private String alias = ""; // 别名
     private String remarks = ""; // 备注
-    private String confirmPwd = ""; // 确认密码
-    //private String confirmPwd = ""; // 确认密码
+    
 
     private Object field = null; // 扩展字段
     private Object field2 = null; // 扩展字段2
@@ -50,6 +51,14 @@ public class UserModel implements Cloneable {
         this.userPwd = userPwd;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public String getAlias() {
         return alias;
     }
@@ -66,12 +75,12 @@ public class UserModel implements Cloneable {
         this.remarks = remarks;
     }
 
-    public String getConfirmPwd() {
-        return confirmPwd;
+    public String getConfirmUserPwd() {
+        return confirmUserPwd;
     }
 
-    public void setConfirmPwd(String confirmPwd) {
-        this.confirmPwd = confirmPwd;
+    public void setConfirmUserPwd(String confirmUserPwd) {
+        this.confirmUserPwd = confirmUserPwd;
     }
 
     public List<String> getRoles() {

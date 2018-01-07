@@ -4,6 +4,7 @@
     <user>
       <user_id>admin</user_id>
       <user_pwd>admin</user_pwd>
+      <salt>123</salt>
       <alias>系统管理员</alias>
       <roles>
         <role>admin</role>
