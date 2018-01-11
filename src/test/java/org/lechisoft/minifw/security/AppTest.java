@@ -7,5 +7,6 @@ public class AppTest
    @Test
    public void Test(){
        MiniSecurity miniSecurity = new MiniSecurity();
+       miniSecurity.login("", "");
    }
 }
