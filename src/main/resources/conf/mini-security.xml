@@ -2,14 +2,14 @@
 <configuration>
   <users>
     <user>
-      <user_id>admin</user_id>
-      <user_pwd>admin</user_pwd>
+      <user_name>admin</user_name>
+      <password>d829b843a6550a947e82f2f38ed6b7a7</password>
       <salt>123</salt>
       <alias>系统管理员</alias>
+      <remarks></remarks>
       <roles>
         <role>admin</role>
       </roles>
-      <remarks></remarks>
     </user>
   </users>
   <roles>

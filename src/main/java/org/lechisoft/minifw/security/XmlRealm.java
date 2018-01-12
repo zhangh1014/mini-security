@@ -1,5 +1,8 @@
 package org.lechisoft.minifw.security;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +13,23 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.lechisoft.minifw.security.common.ConstValue;
 import org.lechisoft.minifw.security.model.PermissionModel;
 import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
-public class XmlRealm extends AuthorizingRealm {
+public class XmlRealm extends AuthorizingRealm implements IXmlRealm {
     private String configFilePath = "";
     Log log = null;
 
@@ -49,17 +56,17 @@ public class XmlRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String username = (String) token.getPrincipal(); // 用户名
-        String password = new String((char[]) token.getCredentials()); // 密码
+        // get user id from token
+        String userId = (String) token.getPrincipal();
 
-        // if (!"zhang".equals(username)) {
-        // throw new UnknownAccountException(); // 如果用户名错误
-        // }
-        // if (!"123".equals(password)) {
-        // throw new IncorrectCredentialsException(); // 如果密码错误
-        // }
-        // 如果身份认证验证成功，返回一个AuthenticationInfo实现；
-        return new SimpleAuthenticationInfo("zhang", "1234", this.getName());
+        // load user by user id
+        UserModel user = this.loadUser(null, userId);
+        if (null == user) {
+            throw new UnknownAccountException(); // unknown account
+        }
+
+        return new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(),
+                ByteSource.Util.bytes(user.getSalt()), this.getName());
     }
 
     @Override
@@ -70,7 +77,7 @@ public class XmlRealm extends AuthorizingRealm {
         return null;
     }
 
-    private void load() {
+    public void load() {
         Element root = this.getRoot();
 
         // 1.load permissions
@@ -98,141 +105,231 @@ public class XmlRealm extends AuthorizingRealm {
         root = null == root ? this.getRoot() : root;
 
         List<PermissionModel> permissions = new ArrayList<PermissionModel>();
-        for (Element e : root.elements()) {
-            if (e.getName().equals("permissions")) {
-                for (Element ePermission : e.elements()) {
-                    Element eResource = ePermission.element("resource");
-                    Element eAction = ePermission.element("action");
-                    Element eDescription = ePermission.element("description");
-                    Element eSort = ePermission.element("sort");
-                    Element eRemarks = ePermission.element("remarks");
-
-                    String resource = eResource.getText();
-                    String action = eAction.getText();
-                    String description = eDescription.getText();
-
-                    String sort = null == eSort ? "0" : eSort.getText();
-                    sort = sort.matches("^\\d+$") ? sort : "0";
-                    String remarks = null == eRemarks ? "" : eRemarks.getText();
-
-                    PermissionModel permission = new PermissionModel(resource, action, description,
-                            Integer.parseInt(sort), remarks);
-                    permissions.add(permission);
-                }
+        Element ePermissions = root.element("permissions");
+        if (null != ePermissions) {
+            for (Element ePermission : ePermissions.elements()) {
+                permissions.add(element2Permission(ePermission));
             }
         }
         return permissions;
     }
 
+    /**
+     * make permission object by permission element
+     * 
+     * @param element
+     *            permission element
+     * @return permission object
+     */
+    private PermissionModel element2Permission(Element element) {
+        Element eResource = element.element("resource");
+        Element eAction = element.element("action");
+        Element eDescription = element.element("description");
+        Element eSort = element.element("sort");
+        Element eRemarks = element.element("remarks");
+
+        String resource = eResource.getText();
+        String action = eAction.getText();
+        String description = eDescription.getText();
+
+        String sort = null == eSort ? "0" : eSort.getText();
+        sort = sort.matches("^\\d+$") ? sort : "0";
+        String remarks = null == eRemarks ? "" : eRemarks.getText();
+
+        PermissionModel permission = new PermissionModel(resource, action);
+        permission.setDescription(description);
+        permission.setSort(Integer.parseInt(sort));
+        permission.setRemarks(remarks);
+        return permission;
+    }
+
+    private PermissionModel getLoadedPermission(String resource, String action) {
+        for (PermissionModel permission : this.permissions) {
+            if (resource.equals(permission.getResource()) && action.equals(permission.getAction())) {
+                return permission;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * load all roles
+     * 
+     * @param root
+     *            root element of configuration
+     * @return list of roles
+     */
     private List<RoleModel> loadRoles(Element root) {
         root = null == root ? this.getRoot() : root;
 
         List<RoleModel> roles = new ArrayList<RoleModel>();
-        for (Element e : root.elements()) {
-            if (e.getName().equals("roles")) {
-                for (Element eRole : e.elements()) {
-                    Element eRoleId = eRole.element("role_id");
-                    Element eRoleName = eRole.element("role_name");
-                    Element eParentRoleId = eRole.element("parent_role_id");
-                    Element eSort = eRole.element("sort");
-                    Element eRemarks = eRole.element("remarks");
-
-                    String roleId = eRoleId.getText();
-                    String roleName = eRoleName.getText();
-                    String parentRoleId = eParentRoleId.getText();
-
-                    String sort = null == eSort ? "0" : eSort.getText();
-                    sort = sort.matches("^\\d+$") ? sort : "0";
-                    String remarks = null == eRemarks ? "" : eRemarks.getText();
-
-                    RoleModel role = new RoleModel();
-                    role.setRoleId(roleId);
-                    role.setRoleName(roleName);
-                    role.setParentRoleId(parentRoleId);
-                    role.setSort(Integer.parseInt(sort));
-                    role.setRemarks(remarks);
-
-                    Element ePermissions = eRole.element("permissions");
-                    if (null != ePermissions) {
-                        for (Element ePermission : ePermissions.elements()) {
-                            String resource = ePermission.element("resource").getText();
-                            String action = ePermission.element("action").getText();
-
-                            PermissionModel permission = this.getLoadedPermission(resource, action);
-                            if (null != permission) {
-                                role.getPermissions().add(permission);
-                            }
-                        }
-                    }
-
-                    Element eExcludePermissions = eRole.element("exclude_permissions");
-                    if (null != eExcludePermissions) {
-                        for (Element ePermission : eExcludePermissions.elements()) {
-                            String resource = ePermission.element("resource").getText();
-                            String action = ePermission.element("action").getText();
-
-                            PermissionModel permission = this.getLoadedPermission(resource, action);
-                            if (null != permission) {
-                                role.getExcludePermissions().add(permission);
-                            }
-                        }
-                    }
-
-                    Element eTags = eRole.element("tags");
-                    if (null != eTags) {
-                        for (Element eTag : eTags.elements()) {
-                            String tag = eTag.getText();
-                            if (!"".equals(tag)) {
-                                role.getTags().add(tag);
-                            }
-                        }
-                    }
-                    roles.add(role);
-                }
+        Element eRoles = root.element("roles");
+        if (null != eRoles) {
+            for (Element eRole : eRoles.elements()) {
+                roles.add(element2Role(eRole));
             }
         }
         return roles;
     }
 
-    private List<UserModel> loadUsers(Element root) {
+    /**
+     * load role by role id
+     * 
+     * @param root
+     *            root element of configuration
+     * @param roleId
+     *            role id
+     * @return role object
+     */
+    private RoleModel loadRole(Element root, String roleId) {
         root = null == root ? this.getRoot() : root;
 
-        List<UserModel> users = new ArrayList<UserModel>();
-        for (Element e : root.elements()) {
-            if (e.getName().equals("users")) {
-                for (Element eUser : e.elements()) {
-                    users.add(element2User(eUser));
-                }
-            }
-        }
-        return users;
-    }
-
-    private UserModel loadUser(Element root, String userId) {
-        root = null == root ? this.getRoot() : root;
-
-        for (Element e : root.elements()) {
-            if (e.getName().equals("users")) {
-                for (Element eUser : e.elements()) {
-                    if (userId.equals(eUser.element("user_id").getText())) {
-                        return element2User(eUser);
-                    }
+        Element eRoles = root.element("roles");
+        if (null != eRoles) {
+            for (Element eRole : eRoles.elements()) {
+                if (roleId.equals(eRole.element("role_id").getText())) {
+                    return element2Role(eRole);
                 }
             }
         }
         return null;
     }
 
+    /**
+     * make role object by role element
+     * 
+     * @param element
+     *            role element
+     * @return role object
+     */
+    private RoleModel element2Role(Element element) {
+        Element eRoleId = element.element("role_id");
+        Element eRoleName = element.element("role_name");
+        Element eParentRoleId = element.element("parent_role_id");
+        Element eSort = element.element("sort");
+        Element eRemarks = element.element("remarks");
+
+        String roleId = eRoleId.getText();
+        String roleName = eRoleName.getText();
+        String parentRoleId = eParentRoleId.getText();
+
+        String sort = null == eSort ? "0" : eSort.getText();
+        sort = sort.matches("^\\d+$") ? sort : "0";
+        String remarks = null == eRemarks ? "" : eRemarks.getText();
+
+        RoleModel role = new RoleModel(roleId);
+        role.setRoleName(roleName);
+        role.setParentRoleId(parentRoleId);
+        role.setSort(Integer.parseInt(sort));
+        role.setRemarks(remarks);
+
+        Element ePermissions = element.element("permissions");
+        if (null != ePermissions) {
+            for (Element ePermission : ePermissions.elements()) {
+                String resource = ePermission.element("resource").getText();
+                String action = ePermission.element("action").getText();
+
+                PermissionModel permission = this.getLoadedPermission(resource, action);
+                if (null != permission) {
+                    role.getPermissions().add(permission);
+                }
+            }
+        }
+
+        Element eExcludePermissions = element.element("exclude_permissions");
+        if (null != eExcludePermissions) {
+            for (Element ePermission : eExcludePermissions.elements()) {
+                String resource = ePermission.element("resource").getText();
+                String action = ePermission.element("action").getText();
+
+                PermissionModel permission = this.getLoadedPermission(resource, action);
+                if (null != permission) {
+                    role.getExcludePermissions().add(permission);
+                }
+            }
+        }
+
+        Element eTags = element.element("tags");
+        if (null != eTags) {
+            for (Element eTag : eTags.elements()) {
+                String tag = eTag.getText();
+                if (!"".equals(tag)) {
+                    role.getTags().add(tag);
+                }
+            }
+        }
+        return role;
+    }
+
+    /**
+     * load all users
+     * 
+     * @param root
+     *            root element of configuration
+     * @return list of users
+     */
+    private List<UserModel> loadUsers(Element root) {
+        root = null == root ? this.getRoot() : root;
+
+        List<UserModel> users = new ArrayList<UserModel>();
+        Element eUsers = root.element("users");
+        if (null != eUsers) {
+            for (Element eUser : eUsers.elements()) {
+                users.add(element2User(eUser));
+            }
+        }
+        return users;
+    }
+
+    /**
+     * load user by user id
+     * 
+     * @param root
+     *            root element of configuration
+     * @param userId
+     *            user id
+     * @return user object
+     */
+    private UserModel loadUser(Element root, String userName) {
+        root = null == root ? this.getRoot() : root;
+
+        Element eUsers = root.element("users");
+        if (null != eUsers) {
+            for (Element eUser : eUsers.elements()) {
+                if (userName.equals(eUser.element("user_name").getText())) {
+                    return element2User(eUser);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * make user object by user element
+     * 
+     * @param element
+     *            user element
+     * @return user object
+     */
     private UserModel element2User(Element element) {
-        String userId = element.element("user_id").getText();
 
-        String userPwd = element.element("user_pwd").getText();
-        String alias = element.element("alias").getText();
+        Element eUserName = element.element("user_name");
+        Element ePassword = element.element("password");
+        Element eSalt = element.element("salt");
+        Element eAlias = element.element("alias");
+        Element eRemarks = element.element("remarks");
 
-        UserModel user = new UserModel();
-        user.setUserId(userId);
-        user.setUserPwd(userPwd);
+        String userName = eUserName.getText();
+        String password = ePassword.getText();
+        String salt = eSalt.getText();
+        String alias = null == eAlias ? userName : eAlias.getText();
+        String remarks = null == eRemarks ? "" : eRemarks.getText();
+
+        UserModel user = new UserModel(userName);
+        user.setPassword(password);
+        user.setSalt(salt);
         user.setAlias(alias);
+        user.setRemarks(remarks);
 
         Element eRoles = element.element("roles");
         if (null != eRoles) {
@@ -244,13 +341,48 @@ public class XmlRealm extends AuthorizingRealm {
         return user;
     }
 
-    private PermissionModel getLoadedPermission(String resource, String action) {
-        for (PermissionModel permission : this.permissions) {
-            if (resource.equals(permission.getResource()) && action.equals(permission.getAction())) {
-                return permission;
+    @Override
+    public void addUser(UserModel user) {
+        Element root = this.getRoot();
+
+        Element eUsers = root.element("users");
+        if (null != eUsers) {
+            Element eUserName = eUsers.addElement("user_name");
+            Element ePassword = eUsers.addElement("password");
+            Element eSalt = eUsers.addElement("salt");
+            Element eAlias = eUsers.addElement("alias");
+            Element eRemarks = eUsers.addElement("remarks");
+
+            eUserName.setText(user.getUserName());
+            ePassword.setText(user.getPassword());
+            eSalt.setText(user.getSalt());
+            eAlias.setText(user.getAlias());
+            eRemarks.setText(user.getRemarks());
+
+            if (user.getRoles().size() > 0) {
+                Element eRoles = eUsers.addElement("roles");
+                for (String roleId : user.getRoles()) {
+                    Element eRole = eRoles.addElement("role");
+                    eRole.setText(roleId);
+                }
             }
+
+            try {
+                // save xml
+                OutputFormat format = OutputFormat.createPrettyPrint();
+                format.setEncoding("utf-8");
+                OutputStream stream = new FileOutputStream(this.configFilePath);
+                XMLWriter xmlWriter = new XMLWriter(stream, format);
+                xmlWriter.write(root.getDocument());
+                xmlWriter.close();
+            } catch (IOException e) {
+                this.log.error("write " + this.configFilePath + " failed.", e);
+            }
+
+            // reload
+            this.load();
+
         }
-        return null;
     }
 
 }

@@ -2,12 +2,9 @@ package org.lechisoft.minifw.security.model;
 
 public class PermissionModel implements Cloneable {
 
-    public PermissionModel(String resource, String action, String description, int sort, String remarks) {
+    public PermissionModel(String resource, String action) {
         this.resource = resource;
         this.action = action;
-        this.description = description;
-        this.sort = sort;
-        this.remarks = remarks;
     }
 
     public PermissionModel clone() {
@@ -25,7 +22,7 @@ public class PermissionModel implements Cloneable {
     private String description = ""; // 描述
     private int sort = 0; // 排序
     private String remarks = ""; // 备注
-
+    
     public String getResource() {
         return resource;
     }
@@ -38,11 +35,25 @@ public class PermissionModel implements Cloneable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getSort() {
         return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
     public String getRemarks() {
         return remarks;
     }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    
 }

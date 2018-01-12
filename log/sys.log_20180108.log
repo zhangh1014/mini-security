@@ -1,0 +1,690 @@
+2018-01-07 22:43:53,794 -0    DEBUG [main] - xxxxx-126
+2018-01-07 22:44:11,190 -17396 DEBUG [main] - xxxxx124
+2018-01-07 22:44:11,190 -17396 DEBUG [main] - xxxxx-53
+2018-01-07 22:44:11,191 -17397 DEBUG [main] - xxxxx14
+2018-01-07 22:44:11,192 -17398 DEBUG [main] - xxxxx-22
+2018-01-07 22:44:11,192 -17398 DEBUG [main] - xxxxx-118
+2018-01-07 22:44:11,193 -17399 DEBUG [main] - xxxxx112
+2018-01-07 22:44:11,193 -17399 DEBUG [main] - xxxxx108
+2018-01-07 22:44:11,194 -17400 DEBUG [main] - xxxxx76
+2018-01-07 22:44:11,195 -17401 DEBUG [main] - xxxxx52
+2018-01-07 22:44:11,195 -17401 DEBUG [main] - xxxxx-95
+2018-01-07 22:44:11,196 -17402 DEBUG [main] - xxxxx104
+2018-01-07 22:44:11,197 -17403 DEBUG [main] - xxxxx-111
+2018-01-07 22:44:11,197 -17403 DEBUG [main] - xxxxx-8
+2018-01-07 22:44:11,198 -17404 DEBUG [main] - xxxxx78
+2018-01-07 22:44:11,198 -17404 DEBUG [main] - xxxxx123
+2018-01-07 22:48:53,150 -0    DEBUG [main] - xxxxx-60
+2018-01-07 22:48:53,151 -1    DEBUG [main] - xxxxx-54
+2018-01-07 22:48:53,151 -1    DEBUG [main] - xxxxx66
+2018-01-07 22:48:53,151 -1    DEBUG [main] - xxxxx56
+2018-01-07 22:48:53,151 -1    DEBUG [main] - xxxxx-96
+2018-01-07 22:48:53,152 -2    DEBUG [main] - xxxxx-71
+2018-01-07 22:48:53,152 -2    DEBUG [main] - xxxxx35
+2018-01-07 22:48:53,152 -2    DEBUG [main] - xxxxx-126
+2018-01-07 22:48:53,152 -2    DEBUG [main] - xxxxx13
+2018-01-07 22:48:53,153 -3    DEBUG [main] - xxxxx-52
+2018-01-07 22:48:53,153 -3    DEBUG [main] - xxxxx80
+2018-01-07 22:48:53,153 -3    DEBUG [main] - xxxxx-102
+2018-01-07 22:48:53,153 -3    DEBUG [main] - xxxxx111
+2018-01-07 22:48:53,155 -5    DEBUG [main] - xxxxx117
+2018-01-07 22:48:53,155 -5    DEBUG [main] - xxxxx-124
+2018-01-07 22:48:53,155 -5    DEBUG [main] - xxxxx-101
+2018-01-07 22:50:11,448 -0    DEBUG [main] - xxxxx-60
+2018-01-07 22:50:11,450 -2    DEBUG [main] - xxxxx-54
+2018-01-07 22:50:11,450 -2    DEBUG [main] - xxxxx66
+2018-01-07 22:50:11,451 -3    DEBUG [main] - xxxxx56
+2018-01-07 22:50:11,451 -3    DEBUG [main] - xxxxx-96
+2018-01-07 22:50:11,452 -4    DEBUG [main] - xxxxx-71
+2018-01-07 22:50:11,452 -4    DEBUG [main] - xxxxx35
+2018-01-07 22:50:11,452 -4    DEBUG [main] - xxxxx-126
+2018-01-07 22:50:11,453 -5    DEBUG [main] - xxxxx13
+2018-01-07 22:50:11,453 -5    DEBUG [main] - xxxxx-52
+2018-01-07 22:50:11,453 -5    DEBUG [main] - xxxxx80
+2018-01-07 22:50:11,454 -6    DEBUG [main] - xxxxx-102
+2018-01-07 22:50:11,455 -7    DEBUG [main] - xxxxx111
+2018-01-07 22:50:11,455 -7    DEBUG [main] - xxxxx117
+2018-01-07 22:50:11,455 -7    DEBUG [main] - xxxxx-124
+2018-01-07 22:50:11,456 -8    DEBUG [main] - xxxxx-101
+2018-01-07 22:56:20,288 -0    DEBUG [main] - xxxxx-60
+2018-01-07 22:56:20,290 -2    DEBUG [main] - xxxxx-54
+2018-01-07 22:56:20,290 -2    DEBUG [main] - xxxxx66
+2018-01-07 22:56:20,290 -2    DEBUG [main] - xxxxx56
+2018-01-07 22:56:20,290 -2    DEBUG [main] - xxxxx-96
+2018-01-07 22:56:20,291 -3    DEBUG [main] - xxxxx-71
+2018-01-07 22:56:20,291 -3    DEBUG [main] - xxxxx35
+2018-01-07 22:56:20,292 -4    DEBUG [main] - xxxxx-126
+2018-01-07 22:56:20,292 -4    DEBUG [main] - xxxxx13
+2018-01-07 22:56:20,292 -4    DEBUG [main] - xxxxx-52
+2018-01-07 22:56:20,292 -4    DEBUG [main] - xxxxx80
+2018-01-07 22:56:20,293 -5    DEBUG [main] - xxxxx-102
+2018-01-07 22:56:20,293 -5    DEBUG [main] - xxxxx111
+2018-01-07 22:56:20,294 -6    DEBUG [main] - xxxxx117
+2018-01-07 22:56:20,294 -6    DEBUG [main] - xxxxx-124
+2018-01-07 22:56:20,294 -6    DEBUG [main] - xxxxx-101
+2018-01-07 22:56:33,022 -0    DEBUG [main] - xxxxx-60
+2018-01-07 22:56:33,024 -2    DEBUG [main] - xxxxx-54
+2018-01-07 22:56:33,024 -2    DEBUG [main] - xxxxx66
+2018-01-07 22:56:33,024 -2    DEBUG [main] - xxxxx56
+2018-01-07 22:56:33,024 -2    DEBUG [main] - xxxxx-96
+2018-01-07 22:56:33,025 -3    DEBUG [main] - xxxxx-71
+2018-01-07 22:56:33,025 -3    DEBUG [main] - xxxxx35
+2018-01-07 22:56:33,025 -3    DEBUG [main] - xxxxx-126
+2018-01-07 22:56:33,025 -3    DEBUG [main] - xxxxx13
+2018-01-07 22:56:33,026 -4    DEBUG [main] - xxxxx-52
+2018-01-07 22:56:33,026 -4    DEBUG [main] - xxxxx80
+2018-01-07 22:56:33,026 -4    DEBUG [main] - xxxxx-102
+2018-01-07 22:56:33,026 -4    DEBUG [main] - xxxxx111
+2018-01-07 22:56:33,027 -5    DEBUG [main] - xxxxx117
+2018-01-07 22:56:33,027 -5    DEBUG [main] - xxxxx-124
+2018-01-07 22:56:33,027 -5    DEBUG [main] - xxxxx-101
+2018-01-07 23:08:42,637 -1    DEBUG [main] - [B@1ff8b8f
+2018-01-07 23:08:42,638 -2    DEBUG [main] - xxxxx-60
+2018-01-07 23:08:42,638 -2    DEBUG [main] - xxxxx-54
+2018-01-07 23:08:42,638 -2    DEBUG [main] - xxxxx66
+2018-01-07 23:08:42,639 -3    DEBUG [main] - xxxxx56
+2018-01-07 23:08:42,639 -3    DEBUG [main] - xxxxx-96
+2018-01-07 23:08:42,639 -3    DEBUG [main] - xxxxx-71
+2018-01-07 23:08:42,639 -3    DEBUG [main] - xxxxx35
+2018-01-07 23:08:42,640 -4    DEBUG [main] - xxxxx-126
+2018-01-07 23:08:42,640 -4    DEBUG [main] - xxxxx13
+2018-01-07 23:08:42,640 -4    DEBUG [main] - xxxxx-52
+2018-01-07 23:08:42,640 -4    DEBUG [main] - xxxxx80
+2018-01-07 23:08:42,640 -4    DEBUG [main] - xxxxx-102
+2018-01-07 23:08:42,641 -5    DEBUG [main] - xxxxx111
+2018-01-07 23:08:42,641 -5    DEBUG [main] - xxxxx117
+2018-01-07 23:08:42,641 -5    DEBUG [main] - xxxxx-124
+2018-01-07 23:08:42,641 -5    DEBUG [main] - xxxxx-101
+2018-01-07 23:10:07,489 -0    DEBUG [main] - [B@1ff8b8f
+2018-01-07 23:10:07,490 -1    DEBUG [main] - -60
+2018-01-07 23:10:07,491 -2    DEBUG [main] - -54
+2018-01-07 23:10:07,491 -2    DEBUG [main] - 66
+2018-01-07 23:10:07,491 -2    DEBUG [main] - 56
+2018-01-07 23:10:07,491 -2    DEBUG [main] - -96
+2018-01-07 23:10:07,491 -2    DEBUG [main] - -71
+2018-01-07 23:10:07,492 -3    DEBUG [main] - 35
+2018-01-07 23:10:07,492 -3    DEBUG [main] - -126
+2018-01-07 23:10:07,492 -3    DEBUG [main] - 13
+2018-01-07 23:10:07,492 -3    DEBUG [main] - -52
+2018-01-07 23:10:07,492 -3    DEBUG [main] - 80
+2018-01-07 23:10:07,493 -4    DEBUG [main] - -102
+2018-01-07 23:10:07,493 -4    DEBUG [main] - 111
+2018-01-07 23:10:07,493 -4    DEBUG [main] - 117
+2018-01-07 23:10:07,493 -4    DEBUG [main] - -124
+2018-01-07 23:10:07,493 -4    DEBUG [main] - -101
+2018-01-07 23:12:43,979 -0    DEBUG [main] - [B@1ff8b8f
+2018-01-07 23:12:43,981 -2    DEBUG [main] - 12
+2018-01-07 23:12:43,982 -3    DEBUG [main] - 12
+2018-01-07 23:12:43,982 -3    DEBUG [main] - 4
+2018-01-07 23:12:43,982 -3    DEBUG [main] - 3
+2018-01-07 23:12:43,982 -3    DEBUG [main] - 10
+2018-01-07 23:12:43,983 -4    DEBUG [main] - 11
+2018-01-07 23:12:43,983 -4    DEBUG [main] - 2
+2018-01-07 23:12:43,983 -4    DEBUG [main] - 8
+2018-01-07 23:12:43,983 -4    DEBUG [main] - 0
+2018-01-07 23:12:43,984 -5    DEBUG [main] - 12
+2018-01-07 23:12:43,984 -5    DEBUG [main] - 5
+2018-01-07 23:12:43,984 -5    DEBUG [main] - 9
+2018-01-07 23:12:43,984 -5    DEBUG [main] - 6
+2018-01-07 23:12:43,985 -6    DEBUG [main] - 7
+2018-01-07 23:12:43,985 -6    DEBUG [main] - 8
+2018-01-07 23:12:43,985 -6    DEBUG [main] - 9
+2018-01-07 23:27:34,301 -0    DEBUG [main] - [B@1ff8b8f
+2018-01-07 23:27:34,303 -2    DEBUG [main] - 5
+2018-01-07 23:27:34,304 -3    DEBUG [main] - 1
+2018-01-07 23:27:34,304 -3    DEBUG [main] - 11
+2018-01-07 23:27:34,305 -4    DEBUG [main] - 1
+2018-01-07 23:27:34,305 -4    DEBUG [main] - 10
+2018-01-07 23:27:34,305 -4    DEBUG [main] - 10
+2018-01-07 23:27:34,306 -5    DEBUG [main] - 7
+2018-01-07 23:27:34,306 -5    DEBUG [main] - 7
+2018-01-07 23:27:34,306 -5    DEBUG [main] - 2
+2018-01-07 23:27:34,306 -5    DEBUG [main] - 12
+2018-01-07 23:27:34,307 -6    DEBUG [main] - 4
+2018-01-07 23:27:34,307 -6    DEBUG [main] - 0
+2018-01-07 23:27:34,307 -6    DEBUG [main] - 15
+2018-01-07 23:27:34,307 -6    DEBUG [main] - 14
+2018-01-07 23:27:34,308 -7    DEBUG [main] - 10
+2018-01-07 23:27:34,308 -7    DEBUG [main] - 2
+2018-01-07 23:35:42,420 -0    DEBUG [main] - T?��z �D��?#
+2018-01-07 23:35:42,421 -1    DEBUG [main] - 5
+2018-01-07 23:35:42,421 -1    DEBUG [main] - 1
+2018-01-07 23:35:42,421 -1    DEBUG [main] - 11
+2018-01-07 23:35:42,422 -2    DEBUG [main] - 1
+2018-01-07 23:35:42,422 -2    DEBUG [main] - 10
+2018-01-07 23:35:42,422 -2    DEBUG [main] - 10
+2018-01-07 23:35:42,422 -2    DEBUG [main] - 7
+2018-01-07 23:35:42,422 -2    DEBUG [main] - 7
+2018-01-07 23:35:42,423 -3    DEBUG [main] - 2
+2018-01-07 23:35:42,423 -3    DEBUG [main] - 12
+2018-01-07 23:35:42,423 -3    DEBUG [main] - 4
+2018-01-07 23:35:42,423 -3    DEBUG [main] - 0
+2018-01-07 23:35:42,423 -3    DEBUG [main] - 15
+2018-01-07 23:35:42,424 -4    DEBUG [main] - 14
+2018-01-07 23:35:42,424 -4    DEBUG [main] - 10
+2018-01-07 23:35:42,424 -4    DEBUG [main] - 2
+2018-01-07 23:36:40,640 -0    DEBUG [main] - 我发誓范德萨劳烦大师分点卡收费阿飞的萨芬咖啡店阿里费德勒范德萨方
+2018-01-07 23:36:40,643 -3    DEBUG [main] - 14
+2018-01-07 23:36:40,644 -4    DEBUG [main] - 8
+2018-01-07 23:36:40,644 -4    DEBUG [main] - 9
+2018-01-07 23:36:40,644 -4    DEBUG [main] - 14
+2018-01-07 23:36:40,644 -4    DEBUG [main] - 8
+2018-01-07 23:36:40,645 -5    DEBUG [main] - 9
+2018-01-07 23:36:40,645 -5    DEBUG [main] - 14
+2018-01-07 23:36:40,645 -5    DEBUG [main] - 10
+2018-01-07 23:36:40,646 -6    DEBUG [main] - 9
+2018-01-07 23:36:40,646 -6    DEBUG [main] - 14
+2018-01-07 23:36:40,646 -6    DEBUG [main] - 8
+2018-01-07 23:36:40,646 -6    DEBUG [main] - 8
+2018-01-07 23:36:40,647 -7    DEBUG [main] - 14
+2018-01-07 23:36:40,647 -7    DEBUG [main] - 11
+2018-01-07 23:36:40,647 -7    DEBUG [main] - 11
+2018-01-07 23:36:40,647 -7    DEBUG [main] - 14
+2018-01-07 23:36:40,648 -8    DEBUG [main] - 9
+2018-01-07 23:36:40,649 -9    DEBUG [main] - 10
+2018-01-07 23:36:40,649 -9    DEBUG [main] - 14
+2018-01-07 23:36:40,650 -10   DEBUG [main] - 8
+2018-01-07 23:36:40,650 -10   DEBUG [main] - 11
+2018-01-07 23:36:40,650 -10   DEBUG [main] - 14
+2018-01-07 23:36:40,651 -11   DEBUG [main] - 8
+2018-01-07 23:36:40,651 -11   DEBUG [main] - 10
+2018-01-07 23:36:40,652 -12   DEBUG [main] - 14
+2018-01-07 23:36:40,652 -12   DEBUG [main] - 10
+2018-01-07 23:36:40,652 -12   DEBUG [main] - 10
+2018-01-07 23:36:40,653 -13   DEBUG [main] - 14
+2018-01-07 23:36:40,654 -14   DEBUG [main] - 11
+2018-01-07 23:36:40,654 -14   DEBUG [main] - 8
+2018-01-07 23:36:40,655 -15   DEBUG [main] - 14
+2018-01-07 23:36:40,655 -15   DEBUG [main] - 8
+2018-01-07 23:36:40,656 -16   DEBUG [main] - 8
+2018-01-07 23:36:40,656 -16   DEBUG [main] - 14
+2018-01-07 23:36:40,672 -32   DEBUG [main] - 8
+2018-01-07 23:36:40,673 -33   DEBUG [main] - 11
+2018-01-07 23:36:40,673 -33   DEBUG [main] - 14
+2018-01-07 23:36:40,674 -34   DEBUG [main] - 8
+2018-01-07 23:36:40,674 -34   DEBUG [main] - 10
+2018-01-07 23:36:40,675 -35   DEBUG [main] - 14
+2018-01-07 23:36:40,675 -35   DEBUG [main] - 9
+2018-01-07 23:36:40,675 -35   DEBUG [main] - 11
+2018-01-07 23:36:40,676 -36   DEBUG [main] - 14
+2018-01-07 23:36:40,676 -36   DEBUG [main] - 11
+2018-01-07 23:36:40,677 -37   DEBUG [main] - 11
+2018-01-07 23:36:40,678 -38   DEBUG [main] - 14
+2018-01-07 23:36:40,678 -38   DEBUG [main] - 9
+2018-01-07 23:36:40,681 -41   DEBUG [main] - 11
+2018-01-07 23:36:40,683 -43   DEBUG [main] - 14
+2018-01-07 23:36:40,684 -44   DEBUG [main] - 10
+2018-01-07 23:36:40,685 -45   DEBUG [main] - 9
+2018-01-07 23:36:40,685 -45   DEBUG [main] - 14
+2018-01-07 23:36:40,691 -51   DEBUG [main] - 9
+2018-01-07 23:36:40,692 -52   DEBUG [main] - 8
+2018-01-07 23:36:40,693 -53   DEBUG [main] - 14
+2018-01-07 23:36:40,693 -53   DEBUG [main] - 9
+2018-01-07 23:36:40,693 -53   DEBUG [main] - 10
+2018-01-07 23:36:40,694 -54   DEBUG [main] - 14
+2018-01-07 23:36:40,694 -54   DEBUG [main] - 8
+2018-01-07 23:36:40,694 -54   DEBUG [main] - 10
+2018-01-07 23:36:40,694 -54   DEBUG [main] - 14
+2018-01-07 23:36:40,695 -55   DEBUG [main] - 9
+2018-01-07 23:36:40,695 -55   DEBUG [main] - 9
+2018-01-07 23:36:40,695 -55   DEBUG [main] - 14
+2018-01-07 23:36:40,696 -56   DEBUG [main] - 9
+2018-01-07 23:36:40,697 -57   DEBUG [main] - 10
+2018-01-07 23:36:40,697 -57   DEBUG [main] - 14
+2018-01-07 23:36:40,698 -58   DEBUG [main] - 11
+2018-01-07 23:36:40,699 -59   DEBUG [main] - 9
+2018-01-07 23:36:40,699 -59   DEBUG [main] - 14
+2018-01-07 23:36:40,699 -59   DEBUG [main] - 9
+2018-01-07 23:36:40,701 -61   DEBUG [main] - 11
+2018-01-07 23:36:40,701 -61   DEBUG [main] - 14
+2018-01-07 23:36:40,702 -62   DEBUG [main] - 8
+2018-01-07 23:36:40,702 -62   DEBUG [main] - 8
+2018-01-07 23:36:40,702 -62   DEBUG [main] - 14
+2018-01-07 23:36:40,702 -62   DEBUG [main] - 11
+2018-01-07 23:36:40,703 -63   DEBUG [main] - 11
+2018-01-07 23:36:40,703 -63   DEBUG [main] - 14
+2018-01-07 23:36:40,703 -63   DEBUG [main] - 11
+2018-01-07 23:36:40,704 -64   DEBUG [main] - 11
+2018-01-07 23:36:40,704 -64   DEBUG [main] - 14
+2018-01-07 23:36:40,704 -64   DEBUG [main] - 8
+2018-01-07 23:36:40,705 -65   DEBUG [main] - 9
+2018-01-07 23:36:40,705 -65   DEBUG [main] - 14
+2018-01-07 23:36:40,705 -65   DEBUG [main] - 8
+2018-01-07 23:36:40,706 -66   DEBUG [main] - 8
+2018-01-07 23:36:40,706 -66   DEBUG [main] - 14
+2018-01-07 23:36:40,707 -67   DEBUG [main] - 11
+2018-01-07 23:36:40,707 -67   DEBUG [main] - 11
+2018-01-07 23:36:40,708 -68   DEBUG [main] - 14
+2018-01-07 23:36:40,708 -68   DEBUG [main] - 9
+2018-01-07 23:36:40,709 -69   DEBUG [main] - 10
+2018-01-07 23:36:40,709 -69   DEBUG [main] - 14
+2018-01-07 23:36:40,709 -69   DEBUG [main] - 9
+2018-01-07 23:36:40,710 -70   DEBUG [main] - 11
+2018-01-07 23:37:10,097 -0    DEBUG [main] - 我发誓范德萨劳烦大师分点卡收费阿飞的萨芬咖啡店阿里费德勒范德萨方
+2018-01-07 23:37:10,100 -3    DEBUG [main] - -26
+2018-01-07 23:37:10,100 -3    DEBUG [main] - -120
+2018-01-07 23:37:10,101 -4    DEBUG [main] - -111
+2018-01-07 23:37:10,101 -4    DEBUG [main] - -27
+2018-01-07 23:37:10,101 -4    DEBUG [main] - -113
+2018-01-07 23:37:10,101 -4    DEBUG [main] - -111
+2018-01-07 23:37:10,102 -5    DEBUG [main] - -24
+2018-01-07 23:37:10,103 -6    DEBUG [main] - -86
+2018-01-07 23:37:10,103 -6    DEBUG [main] - -109
+2018-01-07 23:37:10,103 -6    DEBUG [main] - -24
+2018-01-07 23:37:10,103 -6    DEBUG [main] - -116
+2018-01-07 23:37:10,104 -7    DEBUG [main] - -125
+2018-01-07 23:37:10,104 -7    DEBUG [main] - -27
+2018-01-07 23:37:10,104 -7    DEBUG [main] - -66
+2018-01-07 23:37:10,104 -7    DEBUG [main] - -73
+2018-01-07 23:37:10,105 -8    DEBUG [main] - -24
+2018-01-07 23:37:10,105 -8    DEBUG [main] - -112
+2018-01-07 23:37:10,105 -8    DEBUG [main] - -88
+2018-01-07 23:37:10,106 -9    DEBUG [main] - -27
+2018-01-07 23:37:10,106 -9    DEBUG [main] - -118
+2018-01-07 23:37:10,106 -9    DEBUG [main] - -77
+2018-01-07 23:37:10,106 -9    DEBUG [main] - -25
+2018-01-07 23:37:10,107 -10   DEBUG [main] - -125
+2018-01-07 23:37:10,107 -10   DEBUG [main] - -90
+2018-01-07 23:37:10,107 -10   DEBUG [main] - -27
+2018-01-07 23:37:10,107 -10   DEBUG [main] - -92
+2018-01-07 23:37:10,107 -10   DEBUG [main] - -89
+2018-01-07 23:37:10,108 -11   DEBUG [main] - -27
+2018-01-07 23:37:10,108 -11   DEBUG [main] - -72
+2018-01-07 23:37:10,108 -11   DEBUG [main] - -120
+2018-01-07 23:37:10,108 -11   DEBUG [main] - -27
+2018-01-07 23:37:10,109 -12   DEBUG [main] - -120
+2018-01-07 23:37:10,109 -12   DEBUG [main] - -122
+2018-01-07 23:37:10,109 -12   DEBUG [main] - -25
+2018-01-07 23:37:10,110 -13   DEBUG [main] - -126
+2018-01-07 23:37:10,110 -13   DEBUG [main] - -71
+2018-01-07 23:37:10,110 -13   DEBUG [main] - -27
+2018-01-07 23:37:10,110 -13   DEBUG [main] - -115
+2018-01-07 23:37:10,110 -13   DEBUG [main] - -95
+2018-01-07 23:37:10,111 -14   DEBUG [main] - -26
+2018-01-07 23:37:10,111 -14   DEBUG [main] - -108
+2018-01-07 23:37:10,111 -14   DEBUG [main] - -74
+2018-01-07 23:37:10,111 -14   DEBUG [main] - -24
+2018-01-07 23:37:10,112 -15   DEBUG [main] - -76
+2018-01-07 23:37:10,112 -15   DEBUG [main] - -71
+2018-01-07 23:37:10,112 -15   DEBUG [main] - -23
+2018-01-07 23:37:10,112 -15   DEBUG [main] - -104
+2018-01-07 23:37:10,113 -16   DEBUG [main] - -65
+2018-01-07 23:37:10,113 -16   DEBUG [main] - -23
+2018-01-07 23:37:10,113 -16   DEBUG [main] - -93
+2018-01-07 23:37:10,113 -16   DEBUG [main] - -98
+2018-01-07 23:37:10,114 -17   DEBUG [main] - -25
+2018-01-07 23:37:10,114 -17   DEBUG [main] - -102
+2018-01-07 23:37:10,114 -17   DEBUG [main] - -124
+2018-01-07 23:37:10,114 -17   DEBUG [main] - -24
+2018-01-07 23:37:10,115 -18   DEBUG [main] - -112
+2018-01-07 23:37:10,115 -18   DEBUG [main] - -88
+2018-01-07 23:37:10,115 -18   DEBUG [main] - -24
+2018-01-07 23:37:10,115 -18   DEBUG [main] - -118
+2018-01-07 23:37:10,115 -18   DEBUG [main] - -84
+2018-01-07 23:37:10,116 -19   DEBUG [main] - -27
+2018-01-07 23:37:10,116 -19   DEBUG [main] - -110
+2018-01-07 23:37:10,116 -19   DEBUG [main] - -106
+2018-01-07 23:37:10,116 -19   DEBUG [main] - -27
+2018-01-07 23:37:10,117 -20   DEBUG [main] - -107
+2018-01-07 23:37:10,117 -20   DEBUG [main] - -95
+2018-01-07 23:37:10,117 -20   DEBUG [main] - -27
+2018-01-07 23:37:10,117 -20   DEBUG [main] - -70
+2018-01-07 23:37:10,118 -21   DEBUG [main] - -105
+2018-01-07 23:37:10,118 -21   DEBUG [main] - -23
+2018-01-07 23:37:10,119 -22   DEBUG [main] - -104
+2018-01-07 23:37:10,119 -22   DEBUG [main] - -65
+2018-01-07 23:37:10,119 -22   DEBUG [main] - -23
+2018-01-07 23:37:10,119 -22   DEBUG [main] - -121
+2018-01-07 23:37:10,120 -23   DEBUG [main] - -116
+2018-01-07 23:37:10,120 -23   DEBUG [main] - -24
+2018-01-07 23:37:10,120 -23   DEBUG [main] - -76
+2018-01-07 23:37:10,120 -23   DEBUG [main] - -71
+2018-01-07 23:37:10,121 -24   DEBUG [main] - -27
+2018-01-07 23:37:10,121 -24   DEBUG [main] - -66
+2018-01-07 23:37:10,121 -24   DEBUG [main] - -73
+2018-01-07 23:37:10,122 -25   DEBUG [main] - -27
+2018-01-07 23:37:10,122 -25   DEBUG [main] - -117
+2018-01-07 23:37:10,123 -26   DEBUG [main] - -110
+2018-01-07 23:37:10,124 -27   DEBUG [main] - -24
+2018-01-07 23:37:10,125 -28   DEBUG [main] - -116
+2018-01-07 23:37:10,125 -28   DEBUG [main] - -125
+2018-01-07 23:37:10,126 -29   DEBUG [main] - -27
+2018-01-07 23:37:10,126 -29   DEBUG [main] - -66
+2018-01-07 23:37:10,127 -30   DEBUG [main] - -73
+2018-01-07 23:37:10,127 -30   DEBUG [main] - -24
+2018-01-07 23:37:10,128 -31   DEBUG [main] - -112
+2018-01-07 23:37:10,128 -31   DEBUG [main] - -88
+2018-01-07 23:37:10,129 -32   DEBUG [main] - -26
+2018-01-07 23:37:10,129 -32   DEBUG [main] - -106
+2018-01-07 23:37:10,130 -33   DEBUG [main] - -71
+2018-01-07 23:37:28,552 -1    DEBUG [main] - a
+2018-01-07 23:37:28,554 -3    DEBUG [main] - 97
+2018-01-07 23:37:47,467 -1    DEBUG [main] - ab
+2018-01-07 23:37:47,469 -3    DEBUG [main] - 97
+2018-01-07 23:37:47,470 -4    DEBUG [main] - 98
+2018-01-07 23:48:24,116 -0    DEBUG [main] - 827CCB0EEA8A706C4C34A16891F84E7B
+2018-01-07 23:48:24,255 -139  ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:167)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:81)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:46)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:49:30,914 -1    DEBUG [main] - 827CCB0EEA8A706C4C34A16891F84E7B
+2018-01-07 23:49:39,094 -8181 ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:167)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:81)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:46)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:55:08,787 -1    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:55:25,875 -1    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:55:55,300 -2    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:56:14,564 -4    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:58:38,804 -2    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:58:54,306 -2    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2018-01-07 23:59:20,857 -1    ERROR [main] - load /G:/JDE/workspace/mini-security/target/classes/conf/mini-security.xml failed.
+java.lang.NullPointerException
+	at org.lechisoft.minifw.security.MiniSecurity.loadRoles(MiniSecurity.java:144)
+	at org.lechisoft.minifw.security.MiniSecurity.load(MiniSecurity.java:58)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:45)
+	at org.lechisoft.minifw.security.MiniSecurity.<init>(MiniSecurity.java:32)
+	at org.lechisoft.minifw.security.AppTest.Test(AppTest.java:9)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)

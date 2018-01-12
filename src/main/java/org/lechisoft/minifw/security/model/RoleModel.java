@@ -5,6 +5,10 @@ import java.util.List;
 
 public class RoleModel implements Cloneable {
 
+    public RoleModel(String roleId) {
+        this.roleId = roleId;
+    }
+
     public RoleModel clone() {
         RoleModel o = null;
         try {
@@ -46,10 +50,6 @@ public class RoleModel implements Cloneable {
 
     public String getRoleId() {
         return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
     }
 
     public String getRoleName() {

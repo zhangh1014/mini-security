@@ -5,6 +5,10 @@ import java.util.List;
 
 public class UserModel implements Cloneable {
 
+    public UserModel(String userName) {
+        this.userName = userName;
+    }
+
     public UserModel clone() {
         UserModel o = null;
         try {
@@ -19,13 +23,12 @@ public class UserModel implements Cloneable {
         return o;
     }
 
-    private String userId = ""; // 用户编号
-    private String userPwd = ""; // 用户密码
-    private String confirmUserPwd = ""; // 确认密码
+    private String userName = ""; // 用户名
+    private String password = ""; // 密码
+    private String confirmPassword = ""; // 确认密码
     private String salt = ""; // 盐值
     private String alias = ""; // 别名
     private String remarks = ""; // 备注
-    
 
     private Object field = null; // 扩展字段
     private Object field2 = null; // 扩展字段2
@@ -35,20 +38,16 @@ public class UserModel implements Cloneable {
 
     private List<String> roles = new ArrayList<String>(); // 用户的角色
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getPassword() {
+        return password;
     }
 
-    public String getUserPwd() {
-        return userPwd;
-    }
-
-    public void setUserPwd(String userPwd) {
-        this.userPwd = userPwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getSalt() {
@@ -75,12 +74,12 @@ public class UserModel implements Cloneable {
         this.remarks = remarks;
     }
 
-    public String getConfirmUserPwd() {
-        return confirmUserPwd;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmUserPwd(String confirmUserPwd) {
-        this.confirmUserPwd = confirmUserPwd;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public List<String> getRoles() {
