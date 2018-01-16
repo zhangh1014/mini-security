@@ -337,51 +337,51 @@ public class XmlRealm extends AuthorizingRealm {
         user.setAlias(alias);
         user.setRemarks(remarks);
 
-        Element eRoles = element.element("roles");
-        if (null != eRoles) {
-            for (Element eRole : eRoles.elements()) {
-                String roleId = eRole.getText();
-                user.getRoles().add(roleId);
-            }
-        }
+//        Element eRoles = element.element("roles");
+//        if (null != eRoles) {
+//            for (Element eRole : eRoles.elements()) {
+//                String roleId = eRole.getText();
+//                user.getRoles().add(roleId);
+//            }
+//        }
         return user;
     }
 
-    @Override
-    public void addUser(UserModel user) {
-        Element root = this.getRoot();
-
-        Element eUsers = root.element("users");
-        if (null == eUsers) {
-            eUsers = root.addElement("users");
-        }
-
-        Element eUserName = eUsers.addElement("user_name");
-        Element ePassword = eUsers.addElement("password");
-        Element eSalt = eUsers.addElement("salt");
-        Element eAlias = eUsers.addElement("alias");
-        Element eRemarks = eUsers.addElement("remarks");
-
-        eUserName.setText(user.getUserName());
-        ePassword.setText(user.getPassword());
-        eSalt.setText(user.getSalt());
-        eAlias.setText(user.getAlias());
-        eRemarks.setText(user.getRemarks());
-
-        if (user.getRoles().size() > 0) {
-            Element eRoles = eUsers.addElement("roles");
-            for (String roleId : user.getRoles()) {
-                Element eRole = eRoles.addElement("role");
-                eRole.setText(roleId);
-            }
-        }
-
-        // save
-        this.save(root.getDocument());
-        
-        // reload
-        this.load();
-    }
+    
+//    public void addUser(UserModel user) {
+//        Element root = this.getRoot();
+//
+//        Element eUsers = root.element("users");
+//        if (null == eUsers) {
+//            eUsers = root.addElement("users");
+//        }
+//
+//        Element eUserName = eUsers.addElement("user_name");
+//        Element ePassword = eUsers.addElement("password");
+//        Element eSalt = eUsers.addElement("salt");
+//        Element eAlias = eUsers.addElement("alias");
+//        Element eRemarks = eUsers.addElement("remarks");
+//
+//        eUserName.setText(user.getUserName());
+//        ePassword.setText(user.getPassword());
+//        eSalt.setText(user.getSalt());
+//        eAlias.setText(user.getAlias());
+//        eRemarks.setText(user.getRemarks());
+//
+//        if (user.getRoles().size() > 0) {
+//            Element eRoles = eUsers.addElement("roles");
+//            for (String roleId : user.getRoles()) {
+//                Element eRole = eRoles.addElement("role");
+//                eRole.setText(roleId);
+//            }
+//        }
+//
+//        // save
+//        this.save(root.getDocument());
+//        
+//        // reload
+//        this.load();
+//    }
     
     private void save(Document doc){
         try {

@@ -360,6 +360,7 @@ public class XmlRealmEntity {
         if (user.getRoles().size() > 0) {
             Element eRoles = eUsers.addElement("roles");
             for (RoleModel role : user.getRoles()) {
+                role = this.getRole(role.getRoleId());
                 Element eRole = eRoles.addElement("role");
                 eRole.setText(role.getRoleId());
             }
