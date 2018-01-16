@@ -13,8 +13,8 @@ public class UserModel implements Cloneable {
         UserModel o = null;
         try {
             o = (UserModel) super.clone();
-            o.roles = new ArrayList<String>(); // 用户的角色
-            for (String role : this.getRoles()) {
+            o.roles = new ArrayList<RoleModel>(); // 用户的角色
+            for (RoleModel role : this.getRoles()) {
                 o.roles.add(role);
             }
         } catch (CloneNotSupportedException e) {
@@ -36,7 +36,7 @@ public class UserModel implements Cloneable {
     private Object field4 = null; // 扩展字段4
     private Object field5 = null; // 扩展字段5
 
-    private List<String> roles = new ArrayList<String>(); // 用户的角色
+    private List<RoleModel> roles = new ArrayList<RoleModel>(); // 用户的角色
 
     public String getUserName() {
         return userName;
@@ -82,11 +82,11 @@ public class UserModel implements Cloneable {
         this.confirmPassword = confirmPassword;
     }
 
-    public List<String> getRoles() {
+    public List<RoleModel> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
     }
 

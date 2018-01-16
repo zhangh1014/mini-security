@@ -30,94 +30,68 @@ import org.lechisoft.minifw.security.model.PermissionModel;
 import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
-public class XmlRealm extends AuthorizingRealm {
+public class XmlRealmEntity {
     private String configFilePath = "";
     Log log = null;
 
     // 权限、角色、用户
     private List<PermissionModel> permissions = null;
     private List<RoleModel> roles = null;
+    private List<UserModel> users = null;
 
-    public XmlRealm() {
+    public XmlRealmEntity() {
         this(ConstValue.DEFAULT_PATH);
     }
 
-    public XmlRealm(String path) {
+    public XmlRealmEntity(String path) {
         log = LogFactory.getLog(ConstValue.DEFAULT_LOGGER);
 
-//        URL url = this.getClass().getClassLoader().getResource(path);
-//        if (null == url) {
-//            this.log.error("can not find dir:classpath/" + path);
-//            return;
-//        }
-//        this.configFilePath = url.getPath();
-        
-        HashedCredentialsMatcher hcm = new HashedCredentialsMatcher();
-      hcm.setHashAlgorithmName(ConstValue.HASH_ALGORITHM_NAME);
-      hcm.setHashIterations(1);
-        this.setCredentialsMatcher(hcm);
-        
-        this.load();
-    }
-
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        // get user id from token
-        String userId = (String) token.getPrincipal();
-
-        // load user by user id
-        UserModel user = this.loadUser(null, userId);
-        if (null == user) {
-            throw new UnknownAccountException(); // unknown account
+        URL url = this.getClass().getClassLoader().getResource(path);
+        if (null == url) {
+            this.log.error("can not find dir:classpath/" + path);
+            return;
         }
-
-        return new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(),
-                ByteSource.Util.bytes(user.getSalt()), this.getName());
+        this.configFilePath = url.getPath();
+        this.load(this.configFilePath);
     }
-
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
-        String lala = "fdasfas";
-        lala += "a";
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void load() {
-        Element root = this.getRoot();
-
-        // 1.load permissions
-        this.permissions = this.loadPermissions(root);
-
-        // 2.load roles
-        this.roles = this.loadRoles(root);
-    }
-
-    private Element getRoot() {
+    
+    private Element getRootElement(String path) {
         SAXReader saxReader = new SAXReader();
         try {
-            Document document = saxReader.read(this.configFilePath);
+            Document document = saxReader.read(path);
             return document.getRootElement();
 
         } catch (DocumentException e) {
-            this.log.error("load " + this.configFilePath + " failed.", e);
+            this.log.error("load " + path + " failed.", e);
         } catch (Exception e) {
-            this.log.error("load " + this.configFilePath + " failed.", e);
+            this.log.error("load " + path + " failed.", e);
         }
         return null;
     }
 
-    private List<PermissionModel> loadPermissions(Element root) {
-        root = null == root ? this.getRoot() : root;
+    public void load(String path) {
+        Element root = this.getRootElement(path);
 
-        List<PermissionModel> permissions = new ArrayList<PermissionModel>();
+        // 1.load permissions
+        this.loadPermissions(root);
+
+        // 2.load roles
+        this.loadRoles(root);
+        
+        // 3.load users
+        this.loadUsers(root);
+        
+        root=null;
+    }
+
+    private void loadPermissions(Element root) {
+        this.permissions = new ArrayList<PermissionModel>();
         Element ePermissions = root.element("permissions");
         if (null != ePermissions) {
             for (Element ePermission : ePermissions.elements()) {
                 permissions.add(element2Permission(ePermission));
             }
         }
-        return permissions;
     }
 
     /**
@@ -149,7 +123,7 @@ public class XmlRealm extends AuthorizingRealm {
         return permission;
     }
 
-    private PermissionModel getLoadedPermission(String resource, String action) {
+    private PermissionModel getPermission(String resource, String action) {
         for (PermissionModel permission : this.permissions) {
             if (resource.equals(permission.getResource()) && action.equals(permission.getAction())) {
                 return permission;
@@ -165,17 +139,14 @@ public class XmlRealm extends AuthorizingRealm {
      *            root element of configuration
      * @return list of roles
      */
-    private List<RoleModel> loadRoles(Element root) {
-        root = null == root ? this.getRoot() : root;
-
-        List<RoleModel> roles = new ArrayList<RoleModel>();
+    private void loadRoles(Element root) {
+        this.roles = new ArrayList<RoleModel>();
         Element eRoles = root.element("roles");
         if (null != eRoles) {
             for (Element eRole : eRoles.elements()) {
                 roles.add(element2Role(eRole));
             }
         }
-        return roles;
     }
 
     /**
@@ -187,19 +158,19 @@ public class XmlRealm extends AuthorizingRealm {
      *            role id
      * @return role object
      */
-    private RoleModel loadRole(Element root, String roleId) {
-        root = null == root ? this.getRoot() : root;
-
-        Element eRoles = root.element("roles");
-        if (null != eRoles) {
-            for (Element eRole : eRoles.elements()) {
-                if (roleId.equals(eRole.element("role_id").getText())) {
-                    return element2Role(eRole);
-                }
-            }
-        }
-        return null;
-    }
+//    private RoleModel loadRole(Element root, String roleId) {
+//        root = null == root ? this.getRoot() : root;
+//
+//        Element eRoles = root.element("roles");
+//        if (null != eRoles) {
+//            for (Element eRole : eRoles.elements()) {
+//                if (roleId.equals(eRole.element("role_id").getText())) {
+//                    return element2Role(eRole);
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     /**
      * make role object by role element
@@ -235,7 +206,7 @@ public class XmlRealm extends AuthorizingRealm {
                 String resource = ePermission.element("resource").getText();
                 String action = ePermission.element("action").getText();
 
-                PermissionModel permission = this.getLoadedPermission(resource, action);
+                PermissionModel permission = this.getPermission(resource, action);
                 if (null != permission) {
                     role.getPermissions().add(permission);
                 }
@@ -248,7 +219,7 @@ public class XmlRealm extends AuthorizingRealm {
                 String resource = ePermission.element("resource").getText();
                 String action = ePermission.element("action").getText();
 
-                PermissionModel permission = this.getLoadedPermission(resource, action);
+                PermissionModel permission = this.getPermission(resource, action);
                 if (null != permission) {
                     role.getExcludePermissions().add(permission);
                 }
@@ -266,6 +237,15 @@ public class XmlRealm extends AuthorizingRealm {
         }
         return role;
     }
+    
+    private RoleModel getRole(String roleId) {
+        for (RoleModel role : this.roles) {
+            if (roleId.equals(role.getRoleId())) {
+                return role;
+            }
+        }
+        return null;
+    }
 
     /**
      * load all users
@@ -274,17 +254,14 @@ public class XmlRealm extends AuthorizingRealm {
      *            root element of configuration
      * @return list of users
      */
-    private List<UserModel> loadUsers(Element root) {
-        root = null == root ? this.getRoot() : root;
-
-        List<UserModel> users = new ArrayList<UserModel>();
+    private void loadUsers(Element root) {
+        this.users = new ArrayList<UserModel>();
         Element eUsers = root.element("users");
         if (null != eUsers) {
             for (Element eUser : eUsers.elements()) {
                 users.add(element2User(eUser));
             }
         }
-        return users;
     }
 
     /**
@@ -296,19 +273,19 @@ public class XmlRealm extends AuthorizingRealm {
      *            user id
      * @return user object
      */
-    private UserModel loadUser(Element root, String userName) {
-        root = null == root ? this.getRoot() : root;
-
-        Element eUsers = root.element("users");
-        if (null != eUsers) {
-            for (Element eUser : eUsers.elements()) {
-                if (userName.equals(eUser.element("user_name").getText())) {
-                    return element2User(eUser);
-                }
-            }
-        }
-        return null;
-    }
+//    private UserModel loadUser(Element root, String userName) {
+//        root = null == root ? this.getRoot() : root;
+//
+//        Element eUsers = root.element("users");
+//        if (null != eUsers) {
+//            for (Element eUser : eUsers.elements()) {
+//                if (userName.equals(eUser.element("user_name").getText())) {
+//                    return element2User(eUser);
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     /**
      * make user object by user element
@@ -341,15 +318,27 @@ public class XmlRealm extends AuthorizingRealm {
         if (null != eRoles) {
             for (Element eRole : eRoles.elements()) {
                 String roleId = eRole.getText();
-                user.getRoles().add(roleId);
+                
+                RoleModel role = this.getRole(roleId);
+                if (null != role) {
+                    user.getRoles().add(role);
+                }
             }
         }
         return user;
     }
+    
+    private UserModel getUser(String userName) {
+        for (UserModel user : this.users) {
+            if (userName.equals(user.getUserName())) {
+                return user;
+            }
+        }
+        return null;
+    }
 
-    @Override
     public void addUser(UserModel user) {
-        Element root = this.getRoot();
+        Element root = this.getRootElement(this.configFilePath);
 
         Element eUsers = root.element("users");
         if (null == eUsers) {
@@ -370,17 +359,16 @@ public class XmlRealm extends AuthorizingRealm {
 
         if (user.getRoles().size() > 0) {
             Element eRoles = eUsers.addElement("roles");
-            for (String roleId : user.getRoles()) {
+            for (RoleModel role : user.getRoles()) {
                 Element eRole = eRoles.addElement("role");
-                eRole.setText(roleId);
+                eRole.setText(role.getRoleId());
             }
         }
 
         // save
         this.save(root.getDocument());
+
         
-        // reload
-        this.load();
     }
     
     private void save(Document doc){

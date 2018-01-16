@@ -9,6 +9,5 @@ public class AppTest
        MiniSecurity miniSecurity = new MiniSecurity();
        miniSecurity.login("admin", "admin");
        
-       miniSecurity.reload();
    }
 }

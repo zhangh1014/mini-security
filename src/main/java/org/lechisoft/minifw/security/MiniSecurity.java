@@ -15,39 +15,34 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.Subject;
 import org.lechisoft.minifw.security.common.ConstValue;
 import org.lechisoft.minifw.security.model.UserModel;
 
 public class MiniSecurity implements IMiniSecurity {
-    Log log = null;
-    
+    Log log;
+    Subject subject;
+
     public MiniSecurity() {
-        this(ConstValue.DEFAULT_PATH);
+        this(new XmlRealm());
     }
 
-    public MiniSecurity(String path) {
-        log = LogFactory.getLog(ConstValue.DEFAULT_LOGGER);
-        
-        HashedCredentialsMatcher hcm = new HashedCredentialsMatcher();
-        hcm.setHashAlgorithmName(ConstValue.HASH_ALGORITHM_NAME);
-        hcm.setHashIterations(1);
-        
-        XmlRealm xmlRealm = new XmlRealm(path);
-        xmlRealm.setCredentialsMatcher(hcm);
-        
+    public MiniSecurity(AuthorizingRealm realm) {
+        this.log = LogFactory.getLog(ConstValue.DEFAULT_LOGGER);
+
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
-        securityManager.setRealms(Arrays.asList(xmlRealm));
+        securityManager.setRealms(Arrays.asList(realm));
         SecurityUtils.setSecurityManager(securityManager);
+        this.subject = SecurityUtils.getSubject();
     }
 
     @Override
     public void login(String userName, String password) {
-        
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-        Subject subject = SecurityUtils.getSubject();
         try {
-            subject.login(token);
+            this.subject.login(token);
         } catch (UnknownAccountException e) {
             this.log.info("unknown account.");
         } catch (LockedAccountException e) {
@@ -65,21 +60,11 @@ public class MiniSecurity implements IMiniSecurity {
         } catch (Exception e) {
             this.log.info("login faild.", e);
         }
-        
-        this.log.info(subject.getSession().getId());
 
     }
 
     @Override
-    public void reload() {
-        DefaultSecurityManager securityManager = (DefaultSecurityManager)SecurityUtils.getSecurityManager();
-        XmlRealm xmlRealm = (XmlRealm)securityManager.getRealms().iterator().next();
-        xmlRealm.load();
-    }
-
-    @Override
-    public void addUser(UserModel user) {
-        // TODO Auto-generated method stub
-        
+    public void logout() {
+        this.subject.logout();
     }
 }
