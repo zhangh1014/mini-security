@@ -1,0 +1,6 @@
+[roles]
+;role=perm1,perm2
+admin=*
+
+[tags]
+;tag=role1,role2

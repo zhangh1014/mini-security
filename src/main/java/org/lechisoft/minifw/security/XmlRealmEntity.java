@@ -40,7 +40,7 @@ public class XmlRealmEntity {
     private List<UserModel> users = null;
 
     public XmlRealmEntity() {
-        this(ConstValue.DEFAULT_PATH);
+        //this(ConstValue.DEFAULT_PATH);
     }
 
     public XmlRealmEntity(String path) {
@@ -321,7 +321,7 @@ public class XmlRealmEntity {
                 
                 RoleModel role = this.getRole(roleId);
                 if (null != role) {
-                    user.getRoles().add(role);
+                   // user.getRoles().add(role);
                 }
             }
         }
@@ -359,11 +359,11 @@ public class XmlRealmEntity {
 
         if (user.getRoles().size() > 0) {
             Element eRoles = eUsers.addElement("roles");
-            for (RoleModel role : user.getRoles()) {
-                role = this.getRole(role.getRoleId());
-                Element eRole = eRoles.addElement("role");
-                eRole.setText(role.getRoleId());
-            }
+//            for (RoleModel role : user.getRoles()) {
+//                role = this.getRole(role.getRoleId());
+//                Element eRole = eRoles.addElement("role");
+//                eRole.setText(role.getRoleId());
+//            }
         }
 
         // save

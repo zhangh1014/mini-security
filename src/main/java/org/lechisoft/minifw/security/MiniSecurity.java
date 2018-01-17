@@ -26,7 +26,7 @@ public class MiniSecurity implements IMiniSecurity {
     Subject subject;
 
     public MiniSecurity() {
-        this(new XmlRealm());
+        this(new FileRealm());
     }
 
     public MiniSecurity(AuthorizingRealm realm) {
@@ -43,6 +43,7 @@ public class MiniSecurity implements IMiniSecurity {
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         try {
             this.subject.login(token);
+            this.log.debug("ok");
         } catch (UnknownAccountException e) {
             this.log.info("unknown account.");
         } catch (LockedAccountException e) {
