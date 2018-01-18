@@ -1,48 +1,40 @@
 package org.lechisoft.minifw.security;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
+import org.lechisoft.minifw.log.MiniLog;
 
 public class AppTest {
     @Test
     public void Test() {
 
-//        Thread t = new Thread(new MyThread());
-//        t.start();
+        // Thread t = new Thread(new MyThread());
+        // t.start();
     }
-    
+
     public static void main(String[] args) {
-        
-        for(int i=0;i<1000;i++){
-            MyThread myThread = new MyThread();
+        MiniSecurity miniSecurity = new MiniSecurity();
+        for (int i = 0; i < 10; i++) {
+            MyThread myThread = new MyThread(miniSecurity);
             myThread.start();
         }
+
     }
 }
 
 class MyThread extends Thread {
+    private MiniSecurity miniSecurity = null;
+
+    public MyThread(MiniSecurity miniSecurity) {
+        this.miniSecurity = miniSecurity;
+    }
 
     public void run() {
-        
-        
-        //System.out.println("lalalala");
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss:SSS");
+        this.miniSecurity.login("admin", "admin");
+        List<String> roles = this.miniSecurity.getTagRoles("lala");
 
-        
-        
-        for (int i = 0; i < 10; i++) {
-            String formatStr = formatter.format(new Date());
-            System.out.println("xxx"+formatStr);
-            
-            MiniSecurity miniSecurity = new MiniSecurity();
-            miniSecurity.login("admin", "admin");
-            
-            formatStr = formatter.format(new Date());
-            System.out.println("xxx"+formatStr);
-        }
-        
+        MiniLog.debug(roles.toString());
     }
 
 }
