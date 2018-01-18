@@ -16,13 +16,13 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
-import org.lechisoft.minifw.security.common.ConstValue;
 import org.lechisoft.minifw.security.model.UserModel;
 
 public class FileRealm extends AuthorizingRealm {
+
     public FileRealm() {
         HashedCredentialsMatcher hcm = new HashedCredentialsMatcher();
-        hcm.setHashAlgorithmName(ConstValue.HASH_ALGORITHM_NAME);
+        hcm.setHashAlgorithmName("MD5");
         hcm.setHashIterations(1);
         this.setCredentialsMatcher(hcm);
     }
@@ -32,7 +32,7 @@ public class FileRealm extends AuthorizingRealm {
         String userName = (String) token.getPrincipal();
 
         // load user from authentication file
-        UserModel user = FileRealmDataProvider.loadAuthenticationInfo(userName);
+        UserModel user = FileRealmDataProvider.loadUser(userName);
         if (null == user) {
             throw new UnknownAccountException(); // unknown account
         }
@@ -50,7 +50,7 @@ public class FileRealm extends AuthorizingRealm {
         for (String roleName : user.getRoles()) {
             authorizationInfo.addRole(roleName);
 
-            List<String> permissions = FileRealmDataProvider.getPermissions(roleName);
+            List<String> permissions = FileRealmDataProvider.getRolePermissions(roleName);
             authorizationInfo.addStringPermissions(permissions);
         }
         return authorizationInfo;
@@ -65,10 +65,10 @@ public class FileRealm extends AuthorizingRealm {
     }
 
     private UserModel getLoginUser() {
-        return (UserModel) this.getSession().getAttribute(ConstValue.SESSION_LOGIN_OBJECT_KEY);
+        return (UserModel) this.getSession().getAttribute(MiniSecurity.SESSION_LOGIN_OBJECT_KEY);
     }
 
     private void setLoginUser(UserModel user) {
-        this.getSession().setAttribute(ConstValue.SESSION_LOGIN_OBJECT_KEY, user);
+        this.getSession().setAttribute(MiniSecurity.SESSION_LOGIN_OBJECT_KEY, user);
     }
 }

@@ -18,9 +18,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.lechisoft.minifw.log.MiniLog;
-import org.lechisoft.minifw.security.common.ConstValue;
 
 public class MiniSecurity {
+    public final static String SESSION_LOGIN_OBJECT_KEY = "loginObject";
 
     public MiniSecurity() {
         this(new FileRealm());
@@ -70,7 +70,8 @@ public class MiniSecurity {
         } finally {
             // remove user
             if (!subject.isAuthenticated()) {
-                this.getSession().setAttribute(ConstValue.SESSION_LOGIN_OBJECT_KEY, null);
+
+                this.getSession().removeAttribute(SESSION_LOGIN_OBJECT_KEY);
             }
         }
     }

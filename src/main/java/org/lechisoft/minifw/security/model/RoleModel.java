@@ -5,16 +5,16 @@ import java.util.List;
 
 public class RoleModel {
 
-    private String roleName = ""; // 角色名称
-    private List<String> permissions = new ArrayList<String>(); // 角色的权限
-    private List<String> tags = new ArrayList<String>(); // 角色的标签
-    
-    public RoleModel(String roleName) {
-        this.roleName = roleName;
-    }
+    private String roleName = ""; // role name
+    private List<String> permissions = new ArrayList<String>(); // role's permissions
+    private List<String> tags = new ArrayList<String>(); // role's tags
 
     public String getRoleName() {
         return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public List<String> getPermissions() {

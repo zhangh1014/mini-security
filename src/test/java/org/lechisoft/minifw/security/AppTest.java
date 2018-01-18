@@ -1,7 +1,5 @@
 package org.lechisoft.minifw.security;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.lechisoft.minifw.log.MiniLog;
 
@@ -19,7 +17,7 @@ public class AppTest {
             MyThread myThread = new MyThread(miniSecurity);
             myThread.start();
         }
-
+        
     }
 }
 
@@ -32,9 +30,9 @@ class MyThread extends Thread {
 
     public void run() {
         this.miniSecurity.login("admin", "admin");
-        List<String> roles = this.miniSecurity.getTagRoles("lala");
+        boolean result = this.miniSecurity.isPermitted("user:a");
 
-        MiniLog.debug(roles.toString());
+        MiniLog.debug(String.valueOf(result));
     }
 
 }

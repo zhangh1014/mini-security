@@ -11,128 +11,122 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.lechisoft.minifw.log.MiniLog;
-import org.lechisoft.minifw.security.common.ConstValue;
 import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
 public class FileRealmDataProvider {
+    public final static String AUTHENTICATION = "authentication";
+    public final static String AUTHORIZATION = "authorization";
     private static List<RoleModel> roles = null;
 
     static {
-        roles = loadAuthorizationInfo();
+        roles = loadRoles();
     }
 
-    public static UserModel loadAuthenticationInfo(String userName) {
-        URL url = FileRealmDataProvider.class.getClassLoader().getResource(ConstValue.AUTHENTICATION_INFO);
-        File file = new File(url.getPath());
-        LineIterator li = null;
-        try {
-            li = FileUtils.lineIterator(file, "UTF-8");
-            while (li.hasNext()) {
-                String line = li.nextLine();
+    public static UserModel loadUser(String userName) {
+        URL url = FileRealmDataProvider.class.getClassLoader().getResource(AUTHENTICATION);
+        if (null == url) {
+            MiniLog.error("can not find authentication file:classpath/" + AUTHENTICATION);
+            return null;
+        }
 
-                String pattern = "^" + userName + "=(.+?),(.+)$";
-                Pattern r = Pattern.compile(pattern);
+        LineIterator iterator = null;
+        try {
+            iterator = FileUtils.lineIterator(new File(url.getPath()), "UTF-8");
+            while (iterator.hasNext()) {
+                String line = iterator.nextLine().trim();
+
+                String p = (new StringBuilder()).append(userName).append("=(.+?),(.+)").toString();
+                Pattern r = Pattern.compile(p);
                 Matcher m = r.matcher(line);
                 if (m.find()) {
-                    UserModel user = new UserModel(userName);
+                    String[] pwd = m.group(1).split(":");
 
-                    String password = m.group(1);
-                    String salt = "";
-                    if (password.indexOf(":") != -1) {
-                        salt = password.split(":")[1];
-                        password = password.split(":")[0];
-                    }
-                    user.setPassword(password);
-                    user.setSalt(salt);
-
-                    String roles = m.group(2);
-                    for (String role : roles.split(",")) {
-                        user.getRoles().add(role);
+                    UserModel user = new UserModel();
+                    user.setUserName(userName);
+                    user.setPassword(pwd[0]);
+                    user.setSalt(pwd.length == 1 ? "" : pwd[1]);
+                    for (String roleName : m.group(2).split(",")) {
+                        user.getRoles().add(roleName);
                     }
                     return user;
                 }
             }
-            return null;
         } catch (IOException e) {
-            MiniLog.error("can not find authentication file:classpath/" + ConstValue.AUTHENTICATION_INFO);
-            return null;
+            MiniLog.error("open authentication file exception.");
         } finally {
             try {
-                li.close();
+                iterator.close();
             } catch (IOException e) {
-                MiniLog.error("close authentication file IOException.");
+                MiniLog.error("close authentication file exception.");
             }
         }
+        return null;
     }
 
-    private static List<RoleModel> loadAuthorizationInfo() {
+    private static List<RoleModel> loadRoles() {
         List<RoleModel> roles = new ArrayList<RoleModel>();
 
-        URL url = FileRealmDataProvider.class.getClassLoader().getResource(ConstValue.AUTHORIZATION_INFO);
-        File file = new File(url.getPath());
-        LineIterator li = null;
+        URL url = FileRealmDataProvider.class.getClassLoader().getResource(AUTHORIZATION);
+        if (null == url) {
+            MiniLog.error("can not find authorization file:classpath/" + AUTHORIZATION);
+            return roles;
+        }
+
+        LineIterator iterator = null;
+        String section = "";
         try {
-            String section = "";
-            li = FileUtils.lineIterator(file, "UTF-8");
-            while (li.hasNext()) {
-                String line = li.nextLine().trim();
+            iterator = FileUtils.lineIterator(new File(url.getPath()), "UTF-8");
+            while (iterator.hasNext()) {
+                String line = iterator.nextLine().trim();
 
-                if (line.matches("^\\[roles\\]$")) {
+                if (line.matches(";.*")) {
+
+                } else if (line.matches("\\[roles\\]")) {
                     section = "roles";
-                    continue;
-                }
-                if (line.matches("^\\[tags\\]$")) {
+                } else if (line.matches("\\[tags\\]")) {
                     section = "tags";
-                    continue;
-                }
+                } else if (line.matches("(.+?)=(.+)")) {
+                    Matcher m = Pattern.compile("(.+?)=(.+)").matcher(line);
+                    m.find();
 
-                if (line.startsWith(";")) {
-                    continue;
-                }
+                    String key = m.group(1);
+                    String val = m.group(2);
 
-                if (line.matches("^(.+?)=(.+)$")) {
-                    Pattern r = Pattern.compile("^(.+?)=(.+)$");
-                    Matcher m = r.matcher(line);
-                    if (m.find()) {
-                        String key = m.group(1);
-                        String values = m.group(2);
-
-                        if ("roles".equals(section)) {
-                            RoleModel role = new RoleModel(key);
-                            for (String perm : values.split(",")) {
-                                role.getPermissions().add(perm);
-                            }
-                            roles.add(role);
+                    if ("roles".equals(section)) {
+                        RoleModel role = new RoleModel();
+                        role.setRoleName(key);
+                        for (String permission : val.split(",")) {
+                            role.getPermissions().add(permission);
                         }
+                        roles.add(role);
+                    }
 
-                        if ("tags".equals(section)) {
-                            for (String roleName : values.split(",")) {
-                                for (RoleModel role : roles) {
-                                    if (roleName.equals(role.getRoleName())) {
-                                        role.getTags().add(key);
-                                        break;
-                                    }
+                    if ("tags".equals(section)) {
+                        for (String roleName : val.split(",")) {
+                            for (RoleModel role : roles) {
+                                if (roleName.equals(role.getRoleName())) {
+                                    role.getTags().add(key);
+                                    break;
                                 }
                             }
                         }
-                        continue;
                     }
                 }
             }
         } catch (IOException e) {
-            MiniLog.error("can not find authentication file:classpath/" + ConstValue.AUTHENTICATION_INFO);
+            MiniLog.error("open authorization file exception.");
         } finally {
             try {
-                li.close();
+                iterator.close();
             } catch (IOException e) {
-                MiniLog.error("close authentication file IOException.");
+                MiniLog.error("close authorization file exception.");
             }
         }
         return roles;
     }
 
-    public static List<String> getPermissions(String roleName) {
+    public static List<String> getRolePermissions(String roleName) {
         for (RoleModel role : roles) {
             if (roleName.equals(role.getRoleName())) {
                 return role.getPermissions();
