@@ -1,5 +1,7 @@
 package org.lechisoft.minifw.security;
 
+import java.util.Random;
+
 import org.junit.Test;
 import org.lechisoft.minifw.log.MiniLog;
 
@@ -12,12 +14,12 @@ public class AppTest {
     }
 
     public static void main(String[] args) {
-        MiniSecurity miniSecurity = new MiniSecurity();
-        for (int i = 0; i < 10; i++) {
-            MyThread myThread = new MyThread(miniSecurity);
-            myThread.start();
-        }
-        
+         MiniSecurity miniSecurity = new MiniSecurity();
+         for (int i = 0; i < 1; i++) {
+         MyThread myThread = new MyThread(miniSecurity);
+         myThread.start();
+         }
+         
     }
 }
 
@@ -29,10 +31,13 @@ class MyThread extends Thread {
     }
 
     public void run() {
-        this.miniSecurity.login("admin", "admin");
-        boolean result = this.miniSecurity.isPermitted("user:a");
 
-        MiniLog.debug(String.valueOf(result));
+        try {
+            this.miniSecurity.signin("admin", "admin");
+            this.miniSecurity.cancel("lisi8");
+        } catch (Exception e) {
+            MiniLog.debug("", e);
+        }
     }
 
 }

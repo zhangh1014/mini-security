@@ -13,13 +13,14 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.lechisoft.minifw.log.MiniLog;
+import org.lechisoft.minifw.security.model.UserModel;
 
-public class MiniSecurity {
+public class MiniSecurity implements IMiniSecurity {
     public final static String SESSION_LOGIN_OBJECT_KEY = "loginObject";
 
     public MiniSecurity() {
@@ -40,43 +41,41 @@ public class MiniSecurity {
         return this.getSubject().getSession();
     }
 
-    public void login(String userName, String password) {
-        this.login(userName, password, false);
+    public void signin(String userName, String password) throws Exception {
+        this.signin(userName, password, false);
     }
 
-    public void login(String userName, String password, boolean rememberMe) {
+    public void signin(String userName, String password, boolean rememberMe) throws Exception {
         Subject subject = this.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(rememberMe);
         try {
-            // login
             subject.login(token);
         } catch (UnknownAccountException e) {
-            MiniLog.info("unknown account.");
+            throw new Exception("unknown account.", e);
         } catch (LockedAccountException e) {
-            MiniLog.info("locked account.");
+            throw new Exception("locked account.", e);
         } catch (DisabledAccountException e) {
-            MiniLog.info("disabled account.");
+            throw new Exception("disabled account.", e);
         } catch (IncorrectCredentialsException e) {
-            MiniLog.info("incorrect credentials.");
+            throw new Exception("incorrect credentials.", e);
         } catch (ExpiredCredentialsException e) {
-            MiniLog.info("expired credentials.");
+            throw new Exception("expired credentials.", e);
         } catch (ExcessiveAttemptsException e) {
-            MiniLog.info("excessive attempts.");
+            throw new Exception("excessive attempts.", e);
         } catch (AuthenticationException e) {
-            MiniLog.info("authentication faild.");
+            throw new Exception("authentication faild.", e);
         } catch (Exception e) {
-            MiniLog.info("login faild.", e);
+            throw new Exception("login faild.", e);
         } finally {
             // remove user
             if (!subject.isAuthenticated()) {
-
                 this.getSession().removeAttribute(SESSION_LOGIN_OBJECT_KEY);
             }
         }
     }
 
-    public void logout() {
+    public void signout() {
         Subject subject = this.getSubject();
         subject.logout();
     }
@@ -101,9 +100,9 @@ public class MiniSecurity {
         return false;
     }
 
-    public boolean hasRole(String role) {
+    public boolean hasRole(String roleName) {
         Subject subject = this.getSubject();
-        return subject.hasRole(role);
+        return subject.hasRole(roleName);
     }
 
     public boolean hasAllRoles(String... roles) {
@@ -126,6 +125,48 @@ public class MiniSecurity {
     }
 
     public List<String> getTagRoles(String tag) {
-        return FileRealmDataProvider.getTagRoles(tag);
+        Subject subject = this.getSubject();
+        if (subject.isAuthenticated()) {
+            return FileRealmDataProvider.getTagRoles(tag);
+        }
+        return new ArrayList<String>();
+    }
+
+    @Override
+    public void register(String userName, String password, String... roleNames) throws Exception {
+        Subject subject = this.getSubject();
+        if (subject.isAuthenticated()) {
+            // no role
+            if (roleNames.length == 0) {
+                throw new Exception("unspecified role.");
+            }
+
+            // exists
+            UserModel user = FileRealmDataProvider.loadUser(userName);
+            if (null != user) {
+                throw new Exception("user has already existed.");
+            }
+
+            String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
+            Object simpleHash = new SimpleHash("MD5", password, salt, 1);
+
+            user = new UserModel();
+            user.setUserName(userName);
+            user.setPassword(simpleHash.toString());
+            user.setSalt(salt);
+            for (String roleName : roleNames) {
+                user.getRoles().add(roleName);
+            }
+
+            FileRealmDataProvider.addUser(user);
+        }
+    }
+
+    @Override
+    public void cancel(String userName) throws Exception {
+        Subject subject = this.getSubject();
+        if (subject.isAuthenticated()) {
+            FileRealmDataProvider.removeUser(userName);
+        }
     }
 }

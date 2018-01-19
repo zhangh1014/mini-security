@@ -1,8 +1,12 @@
 package org.lechisoft.minifw.security;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -146,5 +150,72 @@ public class FileRealmDataProvider {
             }
         }
         return lst;
+    }
+
+    public static void addUser(UserModel user) throws Exception {
+        // not find
+        URL url = FileRealmDataProvider.class.getClassLoader().getResource(AUTHENTICATION);
+        if (null == url) {
+            throw new Exception("can not find authentication file:classpath/" + AUTHENTICATION);
+        }
+
+        StringBuilder stb = new StringBuilder("\r\n");
+        stb.append(user.getUserName());
+        stb.append("=");
+        stb.append(user.getPassword());
+        if (user.getSalt().length() > 0) {
+            stb.append(":");
+            stb.append(user.getSalt());
+        }
+        for (String roleName : user.getRoles()) {
+            stb.append(",");
+            stb.append(roleName);
+        }
+
+        try {
+            RandomAccessFile raf = new RandomAccessFile(url.getPath(), "rw");
+            FileChannel fc = raf.getChannel();
+            fc.position(fc.size());
+            fc.write(ByteBuffer.wrap(stb.toString().getBytes()));
+            fc.close();
+            raf.close();
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("can not find authentication file:classpath/" + AUTHENTICATION);
+        } catch (IOException e) {
+            throw new IOException("write authentication file exception.");
+        }
+    }
+    
+    public static void removeUser(String userName) {
+        URL url = FileRealmDataProvider.class.getClassLoader().getResource(AUTHENTICATION);
+        if (null == url) {
+            MiniLog.error("can not find authentication file:classpath/" + AUTHENTICATION);
+            return;
+        }
+
+        LineIterator iterator = null;
+        try {
+            iterator = FileUtils.lineIterator(new File(url.getPath()), "UTF-8");
+            while (iterator.hasNext()) {
+                String line = iterator.nextLine().trim();
+
+                String p = (new StringBuilder()).append(userName).append("=(.+?),(.+)").toString();
+                Pattern r = Pattern.compile(p);
+                Matcher m = r.matcher(line);
+                if (m.find()) {
+                    iterator.remove();
+                    return;
+                }
+            }
+        } catch (IOException e) {
+            MiniLog.error("open authentication file exception.");
+        } finally {
+            try {
+                iterator.close();
+            } catch (IOException e) {
+                MiniLog.error("close authentication file exception.");
+            }
+        }
+        return;
     }
 }
