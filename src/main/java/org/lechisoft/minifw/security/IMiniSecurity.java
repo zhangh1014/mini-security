@@ -1,5 +1,6 @@
 package org.lechisoft.minifw.security;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IMiniSecurity {
@@ -9,9 +10,11 @@ public interface IMiniSecurity {
 
     void signout();
 
-    void register(String userName, String password, String... roleNames) throws Exception;
+    void register(String userName, String password, String... roleNames) throws IOException;
     
     void cancel(String userName) throws Exception;
+    
+    void changePassword(String userName,String password) throws Exception;
 
     boolean isPermitted(String permission);
 

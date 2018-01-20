@@ -1,6 +1,7 @@
 package org.lechisoft.minifw.security;
 
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,6 +17,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
+import org.lechisoft.minifw.security.model.RoleModel;
 import org.lechisoft.minifw.security.model.UserModel;
 
 public class FileRealm extends AuthorizingRealm {
@@ -31,11 +33,18 @@ public class FileRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String userName = (String) token.getPrincipal();
 
-        // load user from authentication file
-        UserModel user = FileRealmDataProvider.loadUser(userName);
-        if (null == user) {
-            throw new UnknownAccountException(); // unknown account
+        UserModel user = null;
+        try {
+            // load user from authentication file
+            user = FileRealmDataProvider.loadUser(userName);
+        } catch (FileNotFoundException e) {
+            throw new AuthenticationException(e.getMessage());
+        } catch (IOException e) {
+            throw new AuthenticationException(e.getMessage());
+        } catch (UnknownAccountException e) {
+            throw e;
         }
+
         // if has user,add to session
         this.setLoginUser(user);
         return new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(),
@@ -50,8 +59,10 @@ public class FileRealm extends AuthorizingRealm {
         for (String roleName : user.getRoles()) {
             authorizationInfo.addRole(roleName);
 
-            List<String> permissions = FileRealmDataProvider.getRolePermissions(roleName);
-            authorizationInfo.addStringPermissions(permissions);
+            RoleModel role = FileRealmDataProvider.getRole(roleName);
+            if (null != role) {
+                authorizationInfo.addStringPermissions(role.getPermissions());
+            }
         }
         return authorizationInfo;
     }

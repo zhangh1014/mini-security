@@ -1,17 +1,12 @@
 package org.lechisoft.minifw.security;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.DisabledAccountException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.ExpiredCredentialsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
@@ -45,33 +40,15 @@ public class MiniSecurity implements IMiniSecurity {
         this.signin(userName, password, false);
     }
 
-    public void signin(String userName, String password, boolean rememberMe) throws Exception {
+    public void signin(String userName, String password, boolean rememberMe) throws AuthenticationException {
         Subject subject = this.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(rememberMe);
-        try {
-            subject.login(token);
-        } catch (UnknownAccountException e) {
-            throw new Exception("unknown account.", e);
-        } catch (LockedAccountException e) {
-            throw new Exception("locked account.", e);
-        } catch (DisabledAccountException e) {
-            throw new Exception("disabled account.", e);
-        } catch (IncorrectCredentialsException e) {
-            throw new Exception("incorrect credentials.", e);
-        } catch (ExpiredCredentialsException e) {
-            throw new Exception("expired credentials.", e);
-        } catch (ExcessiveAttemptsException e) {
-            throw new Exception("excessive attempts.", e);
-        } catch (AuthenticationException e) {
-            throw new Exception("authentication faild.", e);
-        } catch (Exception e) {
-            throw new Exception("login faild.", e);
-        } finally {
-            // remove user
-            if (!subject.isAuthenticated()) {
-                this.getSession().removeAttribute(SESSION_LOGIN_OBJECT_KEY);
-            }
+        subject.login(token);
+        
+        // check
+        if (!subject.isAuthenticated()) {
+            this.getSession().removeAttribute(SESSION_LOGIN_OBJECT_KEY);
         }
     }
 
@@ -133,32 +110,24 @@ public class MiniSecurity implements IMiniSecurity {
     }
 
     @Override
-    public void register(String userName, String password, String... roleNames) throws Exception {
+    public void register(String userName, String password, String... roleNames) throws IOException {
         Subject subject = this.getSubject();
         if (subject.isAuthenticated()) {
             // no role
             if (roleNames.length == 0) {
-                throw new Exception("unspecified role.");
+                //throw new Exception("unspecified role.");
             }
 
             // exists
             UserModel user = FileRealmDataProvider.loadUser(userName);
             if (null != user) {
-                throw new Exception("user has already existed.");
+                //throw new Exception("user has already existed.");
             }
 
             String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
             Object simpleHash = new SimpleHash("MD5", password, salt, 1);
 
-            user = new UserModel();
-            user.setUserName(userName);
-            user.setPassword(simpleHash.toString());
-            user.setSalt(salt);
-            for (String roleName : roleNames) {
-                user.getRoles().add(roleName);
-            }
-
-            FileRealmDataProvider.addUser(user);
+            FileRealmDataProvider.addUser(userName, simpleHash.toString(), salt, roleNames);
         }
     }
 
@@ -166,7 +135,32 @@ public class MiniSecurity implements IMiniSecurity {
     public void cancel(String userName) throws Exception {
         Subject subject = this.getSubject();
         if (subject.isAuthenticated()) {
+
+            // exists
+            UserModel user = FileRealmDataProvider.loadUser(userName);
+            if (null == user) {
+                throw new Exception("user not existed.");
+            }
+
             FileRealmDataProvider.removeUser(userName);
+        }
+    }
+
+    @Override
+    public void changePassword(String userName, String password) throws Exception {
+        Subject subject = this.getSubject();
+        if (subject.isAuthenticated()) {
+
+            // exists
+            UserModel user = FileRealmDataProvider.loadUser(userName);
+            if (null == user) {
+                throw new Exception("user not existed.");
+            }
+
+            String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
+            Object simpleHash = new SimpleHash("MD5", password, salt, 1);
+
+            FileRealmDataProvider.changePassword(userName, simpleHash.toString(), salt);
         }
     }
 }

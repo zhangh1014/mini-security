@@ -33,8 +33,10 @@ class MyThread extends Thread {
     public void run() {
 
         try {
-            this.miniSecurity.signin("admin", "admin");
-            this.miniSecurity.cancel("lisi8");
+            miniSecurity.signin("admin", "admin");
+            //miniSecurity.register("lisi5", "lisi8", "r1");
+            //miniSecurity.cancel("lisi8");
+            miniSecurity.changePassword("lisi5", "xx");
         } catch (Exception e) {
             MiniLog.debug("", e);
         }
