@@ -8,7 +8,7 @@ public class User implements Cloneable {
     private String userName = ""; // user name
     private String password = ""; // password
     private String salt = ""; // salt
-    private List<String> roles = new ArrayList<String>(); // user's roles
+    private List<String> roles = new ArrayList<String>(); // roles
 
     public String getUserName() {
         return userName;

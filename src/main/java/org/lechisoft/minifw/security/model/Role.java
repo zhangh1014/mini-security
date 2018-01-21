@@ -6,8 +6,7 @@ import java.util.List;
 public class Role implements Cloneable {
 
     private String roleName = ""; // role name
-    private List<String> permissions = new ArrayList<String>(); // role's
-                                                                // permissions
+    private List<String> permissions = new ArrayList<String>(); // permissions
 
     public String getRoleName() {
         return roleName;
