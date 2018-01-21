@@ -3,11 +3,11 @@ package org.lechisoft.minifw.security.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleModel {
+public class Role implements Cloneable {
 
     private String roleName = ""; // role name
-    private List<String> permissions = new ArrayList<String>(); // role's permissions
-    private List<String> tags = new ArrayList<String>(); // role's tags
+    private List<String> permissions = new ArrayList<String>(); // role's
+                                                                // permissions
 
     public String getRoleName() {
         return roleName;
@@ -23,13 +23,5 @@ public class RoleModel {
 
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
     }
 }

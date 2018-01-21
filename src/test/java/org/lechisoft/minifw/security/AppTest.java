@@ -1,9 +1,10 @@
 package org.lechisoft.minifw.security;
 
-import java.util.Random;
-
 import org.junit.Test;
 import org.lechisoft.minifw.log.MiniLog;
+import org.lechisoft.minifw.security.exception.IncorrectPasswordException;
+import org.lechisoft.minifw.security.exception.MiniSecurityException;
+import org.lechisoft.minifw.security.exception.UserNotExistedException;
 
 public class AppTest {
     @Test
@@ -14,12 +15,15 @@ public class AppTest {
     }
 
     public static void main(String[] args) {
-         MiniSecurity miniSecurity = new MiniSecurity();
-         for (int i = 0; i < 1; i++) {
-         MyThread myThread = new MyThread(miniSecurity);
-         myThread.start();
-         }
-         
+        RealmData realmData = new FileRealmData();
+        MiniRealm miniRealm = new MiniRealm(realmData);
+        
+        MiniSecurity miniSecurity = new MiniSecurity(miniRealm);
+        for (int i = 0; i < 1; i++) {
+            MyThread myThread = new MyThread(miniSecurity);
+            myThread.start();
+        }
+
     }
 }
 
@@ -34,12 +38,49 @@ class MyThread extends Thread {
 
         try {
             miniSecurity.signin("admin", "admin");
-            //miniSecurity.register("lisi5", "lisi8", "r1");
-            //miniSecurity.cancel("lisi8");
-            miniSecurity.changePassword("lisi5", "xx");
-        } catch (Exception e) {
-            MiniLog.debug("", e);
+            MiniLog.debug("sign in ok.");
+        } catch (UserNotExistedException e) {
+            MiniLog.debug(e.getMessage());
+        } catch (IncorrectPasswordException e) {
+            MiniLog.debug(e.getMessage());
+        } catch (MiniSecurityException e) {
+            MiniLog.debug(e.getMessage());
         }
+        
+        boolean result = miniSecurity.isPermittedAll("user:a","goods:a","goods:b","goods:c");
+        MiniLog.debug(String.valueOf(result));
+     
+        
+        
+//        try {
+//            miniSecurity.register("lalala4", "lisi8", "r1","r2");
+//        } catch (UserAlreadyExistedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (MiniSecurityException e) {
+//            MiniLog.debug(e.getMessage());
+//        }
+//
+//        try {
+//            miniSecurity.cancel("lalala4");
+//        } catch (UnAuthenticatedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (UserNotExistedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (MiniSecurityException e) {
+//            MiniLog.debug(e.getMessage());
+//        }
+//        
+//        try {
+//            miniSecurity.changePassword("lalala", "xxxx");
+//        } catch (UnAuthenticatedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (UserNotExistedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (PasswordNotChangedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (MiniSecurityException e) {
+//            MiniLog.debug(e.getMessage());
+//        }
     }
 
 }

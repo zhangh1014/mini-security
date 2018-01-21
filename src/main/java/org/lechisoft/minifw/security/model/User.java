@@ -3,7 +3,7 @@ package org.lechisoft.minifw.security.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel implements Cloneable {
+public class User implements Cloneable {
 
     private String userName = ""; // user name
     private String password = ""; // password

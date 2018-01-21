@@ -1,5 +1,6 @@
 package org.lechisoft.minifw.security;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,48 +8,58 @@ import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.lechisoft.minifw.security.model.UserModel;
+import org.lechisoft.minifw.security.exception.IncorrectPasswordException;
+import org.lechisoft.minifw.security.exception.MiniSecurityException;
+import org.lechisoft.minifw.security.exception.PasswordNotChangedException;
+import org.lechisoft.minifw.security.exception.UnAuthenticatedException;
+import org.lechisoft.minifw.security.exception.UserAlreadyExistedException;
+import org.lechisoft.minifw.security.exception.UserNotExistedException;
+import org.lechisoft.minifw.security.model.User;
 
-public class MiniSecurity implements IMiniSecurity {
-    public final static String SESSION_LOGIN_OBJECT_KEY = "loginObject";
+public class MiniSecurity {
 
-    public MiniSecurity() {
-        this(new FileRealm());
-    }
-
-    public MiniSecurity(AuthorizingRealm realm) {
+    public MiniSecurity(AuthorizingRealm... realms) {
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
-        securityManager.setRealms(Arrays.asList(realm));
+        securityManager.setRealms(Arrays.asList(realms));
         SecurityUtils.setSecurityManager(securityManager);
     }
 
-    public Subject getSubject() {
+    private Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
     public Session getSession() {
-        return this.getSubject().getSession();
+        return SecurityUtils.getSubject().getSession();
     }
 
-    public void signin(String userName, String password) throws Exception {
+    public void signin(String userName, String password)
+            throws UserNotExistedException, IncorrectPasswordException, MiniSecurityException {
         this.signin(userName, password, false);
     }
 
-    public void signin(String userName, String password, boolean rememberMe) throws AuthenticationException {
-        Subject subject = this.getSubject();
+    public void signin(String userName, String password, boolean rememberMe)
+            throws UserNotExistedException, IncorrectPasswordException, MiniSecurityException {
+        
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(rememberMe);
-        subject.login(token);
         
-        // check
-        if (!subject.isAuthenticated()) {
-            this.getSession().removeAttribute(SESSION_LOGIN_OBJECT_KEY);
+        Subject subject = this.getSubject();
+        try {
+            subject.login(token);
+        } catch (UnknownAccountException e) {
+            throw new UserNotExistedException("the user does not exist.");
+        } catch (IncorrectCredentialsException e) {
+            throw new IncorrectPasswordException("incorrect password.");
+        } catch (AuthenticationException e) {
+            throw new MiniSecurityException(e.getMessage());
         }
     }
 
@@ -77,18 +88,14 @@ public class MiniSecurity implements IMiniSecurity {
         return false;
     }
 
-    public boolean hasRole(String roleName) {
+    public boolean hasRole(String role) {
         Subject subject = this.getSubject();
-        return subject.hasRole(roleName);
+        return subject.hasRole(role);
     }
 
     public boolean hasAllRoles(String... roles) {
-        List<String> lst = new ArrayList<String>();
-        for (String role : roles) {
-            lst.add(role);
-        }
         Subject subject = this.getSubject();
-        return subject.hasAllRoles(lst);
+        return subject.hasAllRoles(Arrays.asList(roles));
     }
 
     public boolean hasAnyRole(String... roles) {
@@ -101,66 +108,136 @@ public class MiniSecurity implements IMiniSecurity {
         return false;
     }
 
-    public List<String> getTagRoles(String tag) {
-        Subject subject = this.getSubject();
-        if (subject.isAuthenticated()) {
-            return FileRealmDataProvider.getTagRoles(tag);
-        }
-        return new ArrayList<String>();
-    }
-
-    @Override
-    public void register(String userName, String password, String... roleNames) throws IOException {
-        Subject subject = this.getSubject();
-        if (subject.isAuthenticated()) {
-            // no role
-            if (roleNames.length == 0) {
-                //throw new Exception("unspecified role.");
-            }
-
-            // exists
-            UserModel user = FileRealmDataProvider.loadUser(userName);
-            if (null != user) {
-                //throw new Exception("user has already existed.");
-            }
-
-            String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
-            Object simpleHash = new SimpleHash("MD5", password, salt, 1);
-
-            FileRealmDataProvider.addUser(userName, simpleHash.toString(), salt, roleNames);
-        }
-    }
-
-    @Override
-    public void cancel(String userName) throws Exception {
-        Subject subject = this.getSubject();
-        if (subject.isAuthenticated()) {
-
-            // exists
-            UserModel user = FileRealmDataProvider.loadUser(userName);
-            if (null == user) {
-                throw new Exception("user not existed.");
-            }
-
-            FileRealmDataProvider.removeUser(userName);
-        }
-    }
-
-    @Override
-    public void changePassword(String userName, String password) throws Exception {
-        Subject subject = this.getSubject();
-        if (subject.isAuthenticated()) {
-
-            // exists
-            UserModel user = FileRealmDataProvider.loadUser(userName);
-            if (null == user) {
-                throw new Exception("user not existed.");
-            }
-
-            String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
-            Object simpleHash = new SimpleHash("MD5", password, salt, 1);
-
-            FileRealmDataProvider.changePassword(userName, simpleHash.toString(), salt);
-        }
-    }
+//    @Override
+//    public void register(String userName, String password, String... roleNames)
+//            throws UserAlreadyExistedException, MiniSecurityException {
+//        // check userName
+//        if (null == userName || !userName.equals(userName.trim()) || userName.length() == 0) {
+//            throw new MiniSecurityException("register failed,incorrect username.");
+//        }
+//
+//        // check password
+//        if (null == password || !password.equals(password.trim()) || password.length() == 0) {
+//            throw new MiniSecurityException("register failed,incorrect password.");
+//        }
+//
+//        // check roles
+//        if (roleNames.length == 0) {
+//            throw new MiniSecurityException("register failed,unspecified role.");
+//        }
+//        for (String roleName : roleNames) {
+//            if (null == roleName || !roleName.equals(roleName.trim()) || roleName.length() == 0) {
+//                throw new MiniSecurityException("register failed,incorrect role.");
+//            }
+//        }
+//
+//        // check exist
+//        User user = null;
+//        try {
+//            user = FileRealmData.loadUser(userName);
+//            if (null != user) {
+//                throw new UserAlreadyExistedException("register failed,the user has already existed.");
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("register failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("register failed,read authentication file exception.");
+//        }
+//
+//        String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
+//        Object simpleHash = new SimpleHash("MD5", password, salt, 1);
+//
+//        try {
+//            FileRealmData.addUser(userName, simpleHash.toString(), salt, roleNames);
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("register failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("register failed,read authentication file exception.");
+//        }
+//    }
+//
+//    @Override
+//    public void cancel(String userName)
+//            throws UnAuthenticatedException, UserNotExistedException, MiniSecurityException {
+//        // check authenticate
+//        Subject subject = this.getSubject();
+//        if (!subject.isAuthenticated()) {
+//            throw new UnAuthenticatedException("cancel failed,unAuthenticated.");
+//        }
+//
+//        // check userName
+//        if (null == userName || !userName.equals(userName.trim()) || userName.length() == 0) {
+//            throw new MiniSecurityException("cancel failed,incorrect username.");
+//        }
+//
+//        // check exist
+//        User user = null;
+//        try {
+//            user = FileRealmData.loadUser(userName.trim());
+//            if (null == user) {
+//                throw new UserNotExistedException("cancel failed,the user not existed.");
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("cancel failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("cancel failed,read authentication file exception.");
+//        }
+//
+//        try {
+//            FileRealmData.removeUser(userName);
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("cancel failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("cancel failed,read authentication file exception.");
+//        }
+//    }
+//
+//    @Override
+//    public void changePassword(String userName, String password)
+//            throws UnAuthenticatedException, UserNotExistedException, PasswordNotChangedException,MiniSecurityException {
+//        // check authenticate
+//        Subject subject = this.getSubject();
+//        if (!subject.isAuthenticated()) {
+//            throw new UnAuthenticatedException("change password failed,unAuthenticated.");
+//        }
+//
+//        // check userName
+//        if (null == userName || !userName.equals(userName.trim()) || userName.length() == 0) {
+//            throw new MiniSecurityException("change password failed,incorrect username.");
+//        }
+//
+//        // check password
+//        if (null == password || !password.equals(password.trim()) || password.length() == 0) {
+//            throw new MiniSecurityException("change password failed,incorrect password.");
+//        }
+//
+//        // check exist
+//        User user = null;
+//        try {
+//            user = FileRealmData.loadUser(userName);
+//            if (null == user) {
+//                throw new UserNotExistedException("change password failed,the user not existed.");
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("change password failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("change password failed,read authentication file exception.");
+//        }
+//        
+//        // check two password
+//        if(user.getPassword().equals(new SimpleHash("MD5", password, user.getSalt(), 1).toString())){
+//            throw new PasswordNotChangedException("change password failed:the new password is the same as the old one.");
+//        }
+//
+//        String salt = String.valueOf((int) ((Math.random() * 9 + 1) * 100));
+//        Object simpleHash = new SimpleHash("MD5", password, salt, 1);
+//
+//        try {
+//            FileRealmData.changePassword(userName, simpleHash.toString(), salt);
+//        } catch (FileNotFoundException e) {
+//            throw new MiniSecurityException("change password failed,can not find authentication file.");
+//        } catch (IOException e) {
+//            throw new MiniSecurityException("change password failed,read authentication file exception.");
+//        }
+//    }
 }
