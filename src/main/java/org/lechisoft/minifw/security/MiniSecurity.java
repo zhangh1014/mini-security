@@ -26,10 +26,20 @@ import org.lechisoft.minifw.security.model.User;
 
 public class MiniSecurity {
 
+    private List<RealmExtension> realmExtensions;
+    
     public MiniSecurity(AuthorizingRealm... realms) {
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
         securityManager.setRealms(Arrays.asList(realms));
         SecurityUtils.setSecurityManager(securityManager);
+    }
+
+    public List<RealmExtension> getRealmExtensions() {
+        return realmExtensions;
+    }
+
+    public void setRealmExtensions(List<RealmExtension> realmExtensions) {
+        this.realmExtensions = realmExtensions;
     }
 
     private Subject getSubject() {
