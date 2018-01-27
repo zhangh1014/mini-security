@@ -74,6 +74,10 @@ public class MiniSecurity {
     public Session getSession() {
         return SecurityUtils.getSubject().getSession();
     }
+    
+    public boolean isAuthenticated(){
+    	return this.getSubject().isAuthenticated();
+    }
 
     public void signin(String userName, String password)
             throws UserNotExistedException, IncorrectPasswordException, MiniSecurityException {
