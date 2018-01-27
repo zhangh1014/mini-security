@@ -14,6 +14,7 @@ import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.lechisoft.minifw.log.MiniLog;
 import org.lechisoft.minifw.security.exception.IncorrectPasswordException;
 import org.lechisoft.minifw.security.exception.MiniSecurityException;
 import org.lechisoft.minifw.security.exception.PasswordNotChangedException;
@@ -29,6 +30,9 @@ public class MiniSecurity {
     private List<Realm> realms = new ArrayList<Realm>();
 
     public MiniSecurity(SecurityData... data) {
+        MiniLog.debug(MiniSecurity.class.getName() + " -> " + Thread.currentThread().getStackTrace()[1].getMethodName()
+                + " begin.");
+
         for (SecurityData sd : data) {
             this.data.add(sd);
             this.realms.add(new MiniRealm(sd));
@@ -37,13 +41,22 @@ public class MiniSecurity {
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
         securityManager.setRealms(this.realms);
         SecurityUtils.setSecurityManager(securityManager);
+
+        MiniLog.debug(MiniSecurity.class.getName() + " -> " + Thread.currentThread().getStackTrace()[1].getMethodName()
+                + " end.");
     }
 
     public MiniSecurity(Realm... realms) {
+        MiniLog.debug(MiniSecurity.class.getName() + " -> " + Thread.currentThread().getStackTrace()[1].getMethodName()
+                + " begin.");
+
         this.realms = Arrays.asList(realms);
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
         securityManager.setRealms(this.realms);
         SecurityUtils.setSecurityManager(securityManager);
+
+        MiniLog.debug(MiniSecurity.class.getName() + " -> " + Thread.currentThread().getStackTrace()[1].getMethodName()
+                + " end.");
     }
 
     public List<SecurityData> getData() {
