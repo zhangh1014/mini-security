@@ -11,15 +11,16 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.lechisoft.minifw.security.exception.SecurityDataException;
 import org.lechisoft.minifw.security.model.Role;
 import org.lechisoft.minifw.security.model.User;
 
 public class MiniRealm extends AuthorizingRealm {
 
-    RealmData realmData = null;
+    SecurityData data = null;
 
-    public MiniRealm(RealmData realmData) {
-        this.realmData = realmData;
+    public MiniRealm(SecurityData data) {
+        this.data = data;
 
         HashedCredentialsMatcher hcm = new HashedCredentialsMatcher();
         hcm.setHashAlgorithmName("MD5");
@@ -30,7 +31,13 @@ public class MiniRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String userName = (String) token.getPrincipal();
-        User user = realmData.getUser(userName);
+
+        User user;
+        try {
+            user = this.data.getUser(userName);
+        } catch (SecurityDataException e) {
+            throw new UnknownAccountException();
+        }
         if (null == user) {
             throw new UnknownAccountException();
         }
@@ -42,17 +49,22 @@ public class MiniRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String userName = (String) principals.getPrimaryPrincipal();
-        User user = realmData.getUser(userName);
-        if (null == user) {
-            throw new UnknownAccountException();
-        }
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        for (String roleName : user.getRoles()) {
-            authorizationInfo.addRole(roleName);
+        try {
+            User user = this.data.getUser(userName);
+            if (null == user) {
+                throw new UnknownAccountException();
+            }
 
-            Role role = realmData.getRole(roleName);
-            authorizationInfo.addStringPermissions(role.getPermissions());
+            for (String roleName : user.getRoles()) {
+                authorizationInfo.addRole(roleName);
+
+                Role role = this.data.getRole(roleName);
+                authorizationInfo.addStringPermissions(role.getPermissions());
+            }
+        } catch (SecurityDataException e1) {
+            throw new UnknownAccountException();
         }
         return authorizationInfo;
     }

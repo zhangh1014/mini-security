@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.lechisoft.minifw.log.MiniLog;
 import org.lechisoft.minifw.security.exception.IncorrectPasswordException;
 import org.lechisoft.minifw.security.exception.MiniSecurityException;
+import org.lechisoft.minifw.security.exception.PasswordNotChangedException;
+import org.lechisoft.minifw.security.exception.UnAuthenticatedException;
+import org.lechisoft.minifw.security.exception.UserAlreadyExistedException;
 import org.lechisoft.minifw.security.exception.UserNotExistedException;
 
 public class AppTest {
@@ -15,10 +18,9 @@ public class AppTest {
     }
 
     public static void main(String[] args) {
-        RealmData realmData = new FileRealmData();
-        MiniRealm miniRealm = new MiniRealm(realmData);
+        SecurityData data = new FileSecurityData();
         
-        MiniSecurity miniSecurity = new MiniSecurity(miniRealm);
+        MiniSecurity miniSecurity = new MiniSecurity(data);
         for (int i = 0; i < 1; i++) {
             MyThread myThread = new MyThread(miniSecurity);
             myThread.start();
@@ -36,24 +38,24 @@ class MyThread extends Thread {
 
     public void run() {
 
-        try {
-            miniSecurity.signin("admin", "admin");
-            MiniLog.debug("sign in ok.");
-        } catch (UserNotExistedException e) {
-            MiniLog.debug(e.getMessage());
-        } catch (IncorrectPasswordException e) {
-            MiniLog.debug(e.getMessage());
-        } catch (MiniSecurityException e) {
-            MiniLog.debug(e.getMessage());
-        }
-        
-        boolean result = miniSecurity.isPermittedAll("user:a","goods:a","goods:b","goods:c");
-        MiniLog.debug(String.valueOf(result));
-     
-        
-        
 //        try {
-//            miniSecurity.register("lalala4", "lisi8", "r1","r2");
+//            miniSecurity.signin("admin", "admin");
+//            MiniLog.debug("sign in ok.");
+//        } catch (UserNotExistedException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (IncorrectPasswordException e) {
+//            MiniLog.debug(e.getMessage());
+//        } catch (MiniSecurityException e) {
+//            MiniLog.debug(e.getMessage());
+//        }
+        
+//        boolean result = miniSecurity.isPermittedAll("user:a","goods:a","goods:b","goods:c");
+//        MiniLog.debug(String.valueOf(result));
+//     
+//        
+//        
+//        try {
+//            miniSecurity.register("user01", "123", "r1","r2");
 //        } catch (UserAlreadyExistedException e) {
 //            MiniLog.debug(e.getMessage());
 //        } catch (MiniSecurityException e) {
@@ -61,7 +63,7 @@ class MyThread extends Thread {
 //        }
 //
 //        try {
-//            miniSecurity.cancel("lalala4");
+//            miniSecurity.cancelUser("user02");
 //        } catch (UnAuthenticatedException e) {
 //            MiniLog.debug(e.getMessage());
 //        } catch (UserNotExistedException e) {
@@ -71,7 +73,7 @@ class MyThread extends Thread {
 //        }
 //        
 //        try {
-//            miniSecurity.changePassword("lalala", "xxxx");
+//            miniSecurity.changePassword("user03", "123456");
 //        } catch (UnAuthenticatedException e) {
 //            MiniLog.debug(e.getMessage());
 //        } catch (UserNotExistedException e) {
