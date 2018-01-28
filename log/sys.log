@@ -6,3 +6,4 @@
 2018-01-28 19:39:34,750 -8    DEBUG [Thread-0] - 10 ~_~ false
 2018-01-28 19:39:41,280 -1    DEBUG [Thread-0] - 10 ~_~ sign in ok.
 2018-01-28 19:39:41,287 -8    DEBUG [Thread-0] - 10 ~_~ true
+2018-01-28 23:15:47,902 -0    DEBUG [main] - 1 ~_~ DefaultWebSessionManager2

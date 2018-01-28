@@ -30,12 +30,16 @@ public class MiniSecurity {
 		this.realms = Arrays.asList(realms);
 		List<Realm> tempRealms = new ArrayList<Realm>();
 		for (MiniRealm realm : this.realms) {
+
 			tempRealms.add(realm);
 		}
 
+		// SecurityManager
 		DefaultSecurityManager securityManager = new DefaultSecurityManager();
 		securityManager.setRealms(tempRealms);
+
 		SecurityUtils.setSecurityManager(securityManager);
+
 	}
 
 	private Subject getSubject() {

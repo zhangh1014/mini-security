@@ -46,8 +46,12 @@ class MyThread extends Thread {
 			MiniLog.debug(e.getMessage());
 		}
 
+		MiniLog.debug(String.valueOf(miniSecurity.isAuthenticated()));
+		
 		boolean result = miniSecurity.isPermittedAny("user:a", "goods:a", "goods:b", "goods:c");
 		MiniLog.debug(String.valueOf(result));
+		
+		
 		//
 		//
 		//

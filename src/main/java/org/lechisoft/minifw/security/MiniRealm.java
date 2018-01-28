@@ -23,7 +23,7 @@ public class MiniRealm extends AuthorizingRealm {
 
 	public MiniRealm(RealmData data) {
 		this.data = data;
-		this.setCredentialsMatcher(this.hashAlgorithmName, this.hashIterations);
+		this.setCredentialsMatcher(this.hashAlgorithmName, this.hashIterations);	
 	}
 
 	@Override
