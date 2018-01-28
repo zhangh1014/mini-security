@@ -19,14 +19,14 @@ import org.lechisoft.minifw.security.exception.SecurityDataException;
 import org.lechisoft.minifw.security.model.Role;
 import org.lechisoft.minifw.security.model.User;
 
-public class FileSecurityData implements SecurityData {
+public class FileRealmData implements RealmData {
 
     public final static String AUTHENTICATION = "authentication";
     public final static String AUTHORIZATION = "authorization";
 
     @Override
     public User getUser(String userName) throws SecurityDataException {
-        URL url = FileSecurityData.class.getClassLoader().getResource(AUTHENTICATION);
+        URL url = FileRealmData.class.getClassLoader().getResource(AUTHENTICATION);
         if (null == url) {
             throw new SecurityDataException(
                     "Get user failed:Can not find authentication file:classpath/" + AUTHENTICATION);
@@ -65,7 +65,7 @@ public class FileSecurityData implements SecurityData {
 
     @Override
     public Role getRole(String roleName) throws SecurityDataException {
-        URL url = FileSecurityData.class.getClassLoader().getResource(AUTHORIZATION);
+        URL url = FileRealmData.class.getClassLoader().getResource(AUTHORIZATION);
         if (null == url) {
             throw new SecurityDataException(
                     "Get role failed:Can not find authorization file:classpath/" + AUTHORIZATION);
@@ -101,7 +101,7 @@ public class FileSecurityData implements SecurityData {
     @Override
     public void register(String userName, String password, String salt, String... roleNames)
             throws SecurityDataException {
-        URL url = FileSecurityData.class.getClassLoader().getResource(AUTHENTICATION);
+        URL url = FileRealmData.class.getClassLoader().getResource(AUTHENTICATION);
         if (null == url) {
             throw new SecurityDataException(
                     "Register failed:Can not find authentication file:classpath/" + AUTHENTICATION);
@@ -143,8 +143,8 @@ public class FileSecurityData implements SecurityData {
     }
 
     @Override
-    public void cancelUser(String userName) throws SecurityDataException {
-        URL url = FileSecurityData.class.getClassLoader().getResource(AUTHENTICATION);
+    public void removeUser(String userName) throws SecurityDataException {
+        URL url = FileRealmData.class.getClassLoader().getResource(AUTHENTICATION);
         if (null == url) {
             throw new SecurityDataException(
                     "Cancel user failed:Can not find authentication file:classpath/" + AUTHENTICATION);
@@ -196,7 +196,7 @@ public class FileSecurityData implements SecurityData {
 
     @Override
     public void changePassword(String userName, String password, String salt) throws SecurityDataException {
-        URL url = FileSecurityData.class.getClassLoader().getResource(AUTHENTICATION);
+        URL url = FileRealmData.class.getClassLoader().getResource(AUTHENTICATION);
         if (null == url) {
             throw new SecurityDataException(
                     "Change password failed:Can not find authentication file:classpath/" + AUTHENTICATION);

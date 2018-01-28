@@ -1,0 +1,8 @@
+2018-01-28 19:37:10,309 -0    DEBUG [main] - 1 ~_~ org.lechisoft.minifw.security.MiniSecurity -> <init> begin.
+2018-01-28 19:37:10,369 -60   DEBUG [main] - 1 ~_~ org.lechisoft.minifw.security.MiniSecurity -> <init> end.
+2018-01-28 19:37:10,787 -478  DEBUG [Thread-0] - 10 ~_~ sign in ok.
+2018-01-28 19:37:43,813 -0    DEBUG [Thread-0] - 10 ~_~ sign in ok.
+2018-01-28 19:39:34,742 -0    DEBUG [Thread-0] - 10 ~_~ sign in ok.
+2018-01-28 19:39:34,750 -8    DEBUG [Thread-0] - 10 ~_~ false
+2018-01-28 19:39:41,280 -1    DEBUG [Thread-0] - 10 ~_~ sign in ok.
+2018-01-28 19:39:41,287 -8    DEBUG [Thread-0] - 10 ~_~ true
