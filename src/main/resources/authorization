@@ -1,8 +1,0 @@
-[roles]
-;role=perm1,perm2
-admin=user:a,user:b
-zhangsan=user:a,user:b
-
-[tags]
-;tag=role1,role2
-lala=admin,zhangsan

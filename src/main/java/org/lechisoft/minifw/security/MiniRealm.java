@@ -11,10 +11,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.lechisoft.minifw.log.MiniLog;
-import org.lechisoft.minifw.security.exception.SecurityDataException;
-import org.lechisoft.minifw.security.model.Role;
-import org.lechisoft.minifw.security.model.User;
 
 public class MiniRealm extends AuthorizingRealm {
 	private String hashAlgorithmName = "MD5";
@@ -35,7 +31,6 @@ public class MiniRealm extends AuthorizingRealm {
 		if (null == user) {
 			throw new UnknownAccountException();
 		}
-		MiniLog.debug(user.getPassword());
 
 		return new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(),
 				ByteSource.Util.bytes(user.getSalt()), this.getName());
@@ -44,20 +39,10 @@ public class MiniRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String userName = (String) principals.getPrimaryPrincipal();
+
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-
-		User user = this.data.getUser(userName);
-		if (null == user) {
-			throw new UnknownAccountException();
-		}
-
-		for (String roleName : user.getRoles()) {
-			authorizationInfo.addRole(roleName);
-
-			Role role = this.data.getRole(roleName);
-			authorizationInfo.addStringPermissions(role.getPermissions());
-		}
-
+		authorizationInfo.addRoles(this.data.getRoles(userName));
+		authorizationInfo.addStringPermissions(this.data.getPermissions(userName));
 		return authorizationInfo;
 	}
 
@@ -68,9 +53,5 @@ public class MiniRealm extends AuthorizingRealm {
 		credentialsMatcher.setHashIterations(hashIterations);
 
 		this.setCredentialsMatcher(credentialsMatcher);
-	}
-
-	public User getUser(String userName) throws SecurityDataException {
-		return this.data.getUser(userName);
 	}
 }

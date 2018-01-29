@@ -1,9 +1,11 @@
 package org.lechisoft.minifw.security;
 
-import org.lechisoft.minifw.security.model.Role;
-import org.lechisoft.minifw.security.model.User;
+import java.util.List;
 
 public interface RealmData {
 	User getUser(String userName);
-	Role getRole(String roleName);
+
+	List<String> getRoles(String userName);
+
+	List<String> getPermissions(String userName);
 }
