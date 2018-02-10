@@ -1,7 +1,5 @@
 package org.lechisoft.minifw.security;
 
-import java.util.List;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,7 +11,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.lechisoft.minifw.log.MiniLog;
 
 public class MiniRealm extends AuthorizingRealm {
 	private String hashAlgorithmName = "MD5";
@@ -41,27 +38,12 @@ public class MiniRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		MiniLog.debug(MiniRealm.class.getName() + " -> "
-                + Thread.currentThread().getStackTrace()[1].getMethodName() + " begin.");
-		
 		String userName = (String) principals.getPrimaryPrincipal();
 
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		List<String> roles = this.data.getRoles(userName);
-		authorizationInfo.addRoles(roles);
-		List<String> permissions = this.data.getPermissions(userName);
-		authorizationInfo.addStringPermissions(permissions);
-		
-		for(String role :roles){
-			MiniLog.debug(role);
-		}
-		
-		for(String permission :permissions){
-			MiniLog.debug(permission);
-		}
-		
-		MiniLog.debug(MiniRealm.class.getName() + " -> "
-                + Thread.currentThread().getStackTrace()[1].getMethodName() + " end.");
+		authorizationInfo.addRoles(this.data.getRoles(userName));
+		authorizationInfo.addStringPermissions(this.data.getPermissions(userName));
+
 		return authorizationInfo;
 	}
 
