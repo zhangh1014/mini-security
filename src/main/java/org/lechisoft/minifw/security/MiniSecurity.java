@@ -1,6 +1,11 @@
 package org.lechisoft.minifw.security;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -10,6 +15,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.lechisoft.minifw.log.MiniLog;
 
 public class MiniSecurity {
 
@@ -63,6 +69,26 @@ public class MiniSecurity {
 
 	public static void signout() {
 		MiniSecurity.getSubject().logout();
+	}
+
+	public static Map<String, String> getFilterChainDefinitionMap() {
+		return MiniSecurity.getFilterChainDefinitionMap("/shiroFilterChain.properties");
+	}
+
+	public static Map<String, String> getFilterChainDefinitionMap(String path) {
+		Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
+		InputStream is = MiniSecurity.class.getClassLoader().getResourceAsStream(path);
+
+		try {
+			Properties props = new Properties();
+			props.load(is);
+			for (String key : props.stringPropertyNames()) {
+				filterChainDefinitionMap.put(key, props.getProperty(key));
+			}
+		} catch (IOException e) {
+			MiniLog.error("load " + path + " error.");
+		}
+		return filterChainDefinitionMap;
 	}
 
 	public static boolean isPermitted(String permission) {
