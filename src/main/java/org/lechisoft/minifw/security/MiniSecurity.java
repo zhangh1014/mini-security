@@ -83,7 +83,9 @@ public class MiniSecurity {
 			Properties props = new Properties();
 			props.load(is);
 			for (String key : props.stringPropertyNames()) {
-				filterChainDefinitionMap.put(key, props.getProperty(key));
+				String val = props.getProperty(key);
+				filterChainDefinitionMap.put(key, val);
+				MiniLog.debug(key+"="+val);
 			}
 		} catch (IOException e) {
 			MiniLog.error("load " + path + " error.");
