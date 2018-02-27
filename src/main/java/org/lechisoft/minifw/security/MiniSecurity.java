@@ -80,7 +80,7 @@ public class MiniSecurity {
 		InputStream is = MiniSecurity.class.getClassLoader().getResourceAsStream(path);
 
 		try {
-			Properties props = new Properties();
+			Properties props = new OrderProperties();
 			props.load(is);
 			for (String key : props.stringPropertyNames()) {
 				String val = props.getProperty(key);
