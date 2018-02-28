@@ -8,6 +8,7 @@
 	<packaging>jar</packaging>
 	<name>mini-security</name>
 
+
 	<build>
 		<finalName>mini-security</finalName>
 		<plugins>
